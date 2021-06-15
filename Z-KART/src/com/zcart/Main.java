@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import user.Customer;
 import java.io.File;
+import Inventory.*;
 
 import user.UserRepository;
 
@@ -30,6 +31,24 @@ public class Main {
         return false;
     }
 
+
+    public static boolean Passwordchecker(String email,String Password) throws IOException {
+
+        File readfile = new File("./zusers_db.txt");
+        BufferedReader br = new BufferedReader(new FileReader(readfile));
+        String st;
+        while ((st = br.readLine()) != null)
+        {
+            String[] data=st.split(" ");
+            if(data[0].equals(email) && data[1].equals(Password))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static void main(String[] args) throws IOException {
 
         Scanner scan = new Scanner(System.in);
@@ -42,8 +61,7 @@ public class Main {
             System.out.println("2:Login");
             System.out.println("Q:Quit");
             choice =scan.next().charAt(0);
-            switch(choice)
-            {
+            switch(choice) {
                 case '1':
                     String email;
                     String password;
@@ -51,57 +69,212 @@ public class Main {
                     String name;
                     long mobileNumber;
                     System.out.println("Enter Your Mail id");
-                    email=scan.next();
+                    email = scan.next();
 
-                    if(Emailchecker(email))
-                    {
+                    if (Emailchecker(email)) {
                         break;
                     }
 
                     System.out.println("Enter Your Name");
-                    name=scan.next();
+                    name = scan.next();
                     System.out.println("Enter Your Mobile Number");
-                    mobileNumber=scan.nextLong();
+                    mobileNumber = scan.nextLong();
                     scan.nextLine();
                     System.out.println("Enter Your Password");
-                    password=scan.nextLine();
+                    password = scan.nextLine();
 
                     System.out.println("Enter Password again");
-                    password1=scan.nextLine();
-                    if(password.length()!=password1.length())
-                    {
+                    password1 = scan.nextLine();
+                    if (password.length() != password1.length()) {
                         System.out.println("Password did not match Try again!");
                         break;
-                    }
-                    else
-                    {
-                           boolean flag=true;
-                           for(int i=0;i<password.length();i++)
-                           {
-                               if(password.charAt(i)!=password1.charAt(i))
-                               {
-                                   flag=false;
-                                   break;
-                               }
-                           }
+                    } else {
+                        boolean flag = true;
+                        for (int i = 0; i < password.length(); i++) {
+                            if (password.charAt(i) != password1.charAt(i)) {
+                                flag = false;
+                                break;
+                            }
+                        }
 
-                           if(!flag)
-                           {
-                               System.out.println("Password did not match Try again!");
-                               break;
-                           }
+                        if (!flag) {
+                            System.out.println("Password did not match Try again!");
+                            break;
+                        }
                     }
                     password = userRepository.encryptPassword(password);
 
 
+//                    System.out.println(password1 + " " + password);
 
 
-                    Customer customer = new Customer(email,password,name,mobileNumber);
+                    Customer customer = new Customer(email, password, name, mobileNumber);
+
                     userRepository.addUser(customer,file);
-                    System.out.println(customer.getName()+" added successfully");
+                    System.out.println(customer.getName() + " added successfully");
                     break;
-                    case '2':
-                        System.out.println("Coming soon");
+                case '2':
+                    String Email;
+                    String Password;
+                    System.out.println("Enter Your mail id");
+                    Email = scan.next();
+                    System.out.println("Enter password");
+                    Password = scan.next();
+                    Password = userRepository.encryptPassword(Password);
+                    if (Passwordchecker(Email, Password)) {
+
+                        char Choice;
+                        do {
+                            System.out.println("Welcome to Z-kart");
+                            System.out.println("1:Shopping");
+                            System.out.println("2:CART");
+                            System.out.println("3:ORDER-PLACE");
+                            System.out.println("4:ORDER-HISTORY");
+                            System.out.println("5:ORDER-INVOICE");
+                            System.out.println("6:Log-Out");
+                            Choice = scan.next().charAt(0);
+                            switch (Choice)
+                            {
+                                case '1':
+
+                                        ArrayList<Product> list1 = new ArrayList<Product>();
+                                        File Pro = new File("./z-kart_db.txt");
+                                        BufferedReader br = new BufferedReader(new FileReader(Pro));
+                                        String st;
+                                        while ((st = br.readLine()) != null)
+                                            {
+                                                String[] data=st.split(" ");
+                                                Product prod=new Product(data[0],data[1],data[2],Double.parseDouble(data[3]),Integer.parseInt(data[4]));
+                                                list1.add(prod);
+                                            }
+
+
+
+                                        System.out.println("Enter the category you want to see");
+                                        System.out.println("Type:1-MOBILE");
+                                        System.out.println("Type:2-LAPTOP");
+                                        System.out.println("Type:3-TABLET");
+                                        int CATEGORY=scan.nextInt();
+                                        String addCategory = null;
+                                        double price = 0;
+
+                                        if(CATEGORY==1)
+                                        {
+                                            System.out.println("CATEGORY:---MOBILE----------- ");
+                                            addCategory="Mobile";
+                                            for(int i=0;i<list1.size();i++)
+                                            {
+
+                                                if((list1.get(i).category).equals("Mobile"))
+                                                {
+                                                    price=list1.get(i).price;
+                                                    System.out.println("BRAND :-" +list1.get(i).brand);
+                                                    System.out.println("MODEL :-" +list1.get(i).model);
+                                                    System.out.println("PRICE :-" +list1.get(i).price);
+                                                    System.out.println("STOCK :-" +list1.get(i).stock);
+
+                                                }
+                                                System.out.println();
+                                            }
+                                        }
+                                        else if(CATEGORY==2)
+                                        {
+                                            System.out.println("CATEGORY:---LAPTOP----------- ");
+                                            addCategory="Laptop";
+                                            for(int i=0;i<list1.size();i++)
+                                            {
+                                                if((list1.get(i).category).equals("Laptop"))
+                                                {
+                                                    price=list1.get(i).price;
+                                                    System.out.println("BRAND :-" +list1.get(i).brand);
+                                                    System.out.println("MODEL :-" +list1.get(i).model);
+                                                    System.out.println("PRICE :-" +list1.get(i).price);
+                                                    System.out.println("STOCK :-" +list1.get(i).stock);
+
+                                                }
+                                                System.out.println();
+                                            }
+                                        }
+                                        else if(CATEGORY==3)
+                                        {
+                                            System.out.println("CATEGORY:---Tablet----------- ");
+                                            addCategory="Tablet";
+                                            for(int i=0;i<list1.size();i++)
+                                            {
+                                                if((list1.get(i).category).equals("Tablet"))
+                                                {
+                                                    price=list1.get(i).price;
+                                                    System.out.println("BRAND :-" +list1.get(i).brand);
+                                                    System.out.println("MODEL :-" +list1.get(i).model);
+                                                    System.out.println("PRICE :-" +list1.get(i).price);
+                                                    System.out.println("STOCK :-" +list1.get(i).stock);
+
+                                                }
+                                                System.out.println();
+                                            }
+                                        }
+
+
+                                        System.out.println("Enter the brand and model you want to buy");
+                                        String brand = scan.next();
+                                        String mode  = scan.next();
+
+
+                                        Cart cart = new Cart(Email,brand,addCategory,mode,price);
+                                        File fILE = new File("./zcartuser_db.txt");
+                                        UserRepository.addCart(cart,fILE);
+
+                                case '2':
+
+                                    ArrayList<Cart> list2 = new ArrayList<Cart>();
+                                    File Cartreader = new File("./zcartuser_db.txt");
+                                    BufferedReader bri = new BufferedReader(new FileReader(Cartreader));
+
+                                    String St;
+                                    while ((St = bri.readLine()) != null)
+                                    {
+                                        String[] data=St.split(" ");
+                                        if(data[0].equals(Email))
+                                        {
+                                            Cart cART = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]));
+                                            list2.add(cART);
+                                        }
+
+                                    }
+
+                                    System.out.println("Your order is");
+                                    for(int i=0;i<list2.size();i++)
+                                    {
+                                        System.out.println(list2.get(i).email+" "+list2.get(i).brand);
+                                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            }
+
+                        } while (choice != '6');
+
+                    } else {
+                        System.out.println("Email and password not valid!");
+                    }
 
             }
 

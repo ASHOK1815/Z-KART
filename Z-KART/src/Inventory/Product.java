@@ -2,14 +2,14 @@ package Inventory;
 
 public class Product {
 
-    public
-    String brand;
-    String category;
-    String model;
-    double price;
-    int stock;
 
-    public Product(String brand, String category, String model, double price, int stock) {
+    public String brand;
+    public String category;
+    public String model;
+    public double price;
+    public int stock;
+
+    public Product(String category,String brand,  String model, double price, int stock) {
         this.brand = brand;
         this.category = category;
         this.model = model;

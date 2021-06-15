@@ -1,5 +1,7 @@
 package user;
 
+import Inventory.Cart;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,6 +19,24 @@ public class UserRepository {
                char ch = (char)(((int)password.charAt(i) +
                        1 - 65) % 26 + 65);
                result.append(ch);
+           }
+           else if(password.charAt(i)>='0' && password.charAt(i)<='9')
+           {
+               char ch;
+
+               int ch1=password.charAt(i)+1;
+
+               if(ch1==58)
+               {
+                   ch='0';
+               }
+               else
+               {
+                   ch=(char)ch1;
+               }
+
+               result.append(ch);
+
            }
            else
            {
@@ -49,10 +69,21 @@ public class UserRepository {
         return result.toString();
     }
 
-   public void addUser(Customer customer,File file) throws IOException {
+   public  void addUser(Customer customer,File file) throws IOException {
         FileWriter fileWriter = new FileWriter(file,true);
         BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
         bufferedWriter.write(customer.toString());
+        bufferedWriter.close();
+        fileWriter.close();
+    }
+
+
+
+
+    public static void addCart(Cart cart,File file) throws IOException {
+        FileWriter fileWriter = new FileWriter(file,true);
+        BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
+        bufferedWriter.write(cart.toString());
         bufferedWriter.close();
         fileWriter.close();
     }
