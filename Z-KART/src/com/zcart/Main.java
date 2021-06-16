@@ -248,55 +248,71 @@ public class Main {
                             admin.displayCurrentStockDetails(list1);
 
                             int AdminPersmission;
-                            System.out.println("Want to Update stock and add product::--PRESS: 1");
-                            AdminPersmission=scan.nextInt();
-                            if(AdminPersmission==1)
-                            {
 
-                                String brandname=null;
-                                String modelname=null;
-                                System.out.println("Enter the Brand Name and Model");
-                                brandname=scan.next();
-                                modelname=scan.next();
-                                int stockvalue=0;
-                                System.out.println("How many stock you want to add in  "+brandname);
-                                stockvalue=scan.nextInt();
 
-                                for(int i=0;i<list1.size();i++)
+                            do{
+                                System.out.println("Want to Update stock and add product::--PRESS: 1   PRESS:Q-QUIT");
+                                AdminPersmission=scan.nextInt();
+                                if(AdminPersmission==1)
                                 {
-                                    if(list1.get(i).brand.equals(brandname) && list1.get(i).model.equals(modelname))
+
+                                    String brandname=null;
+                                    String modelname=null;
+                                    System.out.println("Enter the Brand Name and Model");
+                                    brandname=scan.next();
+                                    modelname=scan.next();
+                                    int stockvalue=0;
+                                    System.out.println("How many stock you want to add in  "+brandname);
+                                    stockvalue=scan.nextInt();
+
+                                    boolean flag=true;
+
+                                    for(int i=0;i<list1.size();i++)
                                     {
-                                        list1.get(i).stock=list1.get(i).stock+stockvalue;
+                                        if(list1.get(i).brand.equalsIgnoreCase(brandname) && list1.get(i).model.equalsIgnoreCase(modelname))
+                                        {
+                                            flag=false;
+                                            list1.get(i).stock=list1.get(i).stock+stockvalue;
+                                        }
                                     }
+
+                                    if(flag)
+                                    {
+                                        System.out.println("Data not founded please write proper name");
+                                    }
+                                    else
+                                    {
+
+                                        FileWriter fileWriter = new FileWriter(Pro);
+                                        PrintWriter writer = new PrintWriter(Pro);
+                                        writer.print("");
+                                        writer.close();
+
+                                        BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
+                                        for(int i=0;i<list1.size();i++)
+                                        {
+                                            bufferedWriter.write(list1.get(i).toString());
+                                        }
+
+                                        bufferedWriter.close();
+                                        fileWriter.close();
+                                        System.out.println("Stock Updated Successfully");
+
+                                    }
+
+
                                 }
-
-
-                                FileWriter fileWriter = new FileWriter(Pro);
-                                PrintWriter writer = new PrintWriter(Pro);
-                                writer.print("");
-                                writer.close();
-
-                                BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
-                                for(int i=0;i<list1.size();i++)
+                                else
                                 {
-                                    bufferedWriter.write(list1.get(i).toString());
+                                    System.out.println("Thanks for checking out Stock ");
+                                    System.out.println("-----------Z-KART-------------");
+
                                 }
 
-                                bufferedWriter.close();
-                                fileWriter.close();
-                                System.out.println("Stock Updated Successfully");
 
 
+                            }while(AdminPersmission==1);
 
-
-
-
-                            }
-                            else
-                            {
-                                System.out.println("Thanks for checking out Stock ");
-                                System.out.println("-----------Z-KART-------------");
-                            }
 
 
 
