@@ -7,7 +7,6 @@ public class Cart {
     public String category;
     public String model;
     public double price;
-    public int Quantity;
 
     public Cart( String email, String brand, String category,String model, double price)
     {

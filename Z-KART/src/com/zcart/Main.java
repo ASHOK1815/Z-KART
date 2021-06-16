@@ -13,6 +13,7 @@ import user.UserRepository;
 
 public class Main {
 
+    static String username="";
     public static boolean Emailchecker(String email) throws IOException {
 
         File readfile = new File("./zusers_db.txt");
@@ -37,11 +38,13 @@ public class Main {
         File readfile = new File("./zusers_db.txt");
         BufferedReader br = new BufferedReader(new FileReader(readfile));
         String st;
+
         while ((st = br.readLine()) != null)
         {
             String[] data=st.split(" ");
             if(data[0].equals(email) && data[1].equals(Password))
             {
+                username=data[2];
                 return true;
             }
         }
@@ -127,11 +130,10 @@ public class Main {
                         do {
                             System.out.println("Welcome to Z-kart");
                             System.out.println("1:Shopping");
-                            System.out.println("2:CART");
-                            System.out.println("3:ORDER-PLACE");
-                            System.out.println("4:ORDER-HISTORY");
-                            System.out.println("5:ORDER-INVOICE");
-                            System.out.println("6:Log-Out");
+                            System.out.println("2:ORDER-INVOICE");
+                            System.out.println("3:ORDER-HISTORY");
+                            System.out.println("4:CART");
+                            System.out.println("5:Log-Out");
                             Choice = scan.next().charAt(0);
                             switch (Choice)
                             {
@@ -216,18 +218,68 @@ public class Main {
 
 
                                         System.out.println("Enter the brand and model you want to buy");
-                                        String brand = scan.next();
+                                        String Brand = scan.next();
                                         String mode  = scan.next();
 
+                                        boolean flag=true;
+                                        for(int i=0;i<list1.size();i++)
+                                        {
+                                            if((list1.get(i).brand).equals(Brand) && (list1.get(i).model).equals(mode))
+                                            {
+                                                if(list1.get(i).stock==0)
+                                                {
+                                                    System.out.println("Product is out of stock");
+                                                    flag=false;
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    list1.get(i).stock=list1.get(i).stock-1;
+                                                }
 
-                                        Cart cart = new Cart(Email,brand,addCategory,mode,price);
-                                        File fILE = new File("./zcartuser_db.txt");
-                                        UserRepository.addCart(cart,fILE);
+                                            }
+                                        }
+
+
+                                        if(!flag)
+                                        {
+                                            break;
+                                        }
+
+                                    FileWriter fileWriter = new FileWriter(Pro,true);
+                                    PrintWriter writer = new PrintWriter(Pro);
+                                    writer.print("");
+                                    writer.close();
+
+                                    BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
+                                    for(int i=0;i<list1.size();i++)
+                                    {
+                                        bufferedWriter.write(list1.get(i).toString());
+                                    }
+
+                                    bufferedWriter.close();
+                                    fileWriter.close();
+
+
+                                    Cart cart = new Cart(Email,Brand,addCategory,mode,price);
+
+
+                                    File currentprod=new File(("./z-current-product_db.txt"));
+
+                                    UserRepository.addCart(cart,currentprod);
+
+
+                                    File fILE = new File("./zcartuserHistory_db.txt");
+                                    UserRepository.addCart(cart,fILE);
+
+
+
+                                    break;
 
                                 case '2':
 
                                     ArrayList<Cart> list2 = new ArrayList<Cart>();
-                                    File Cartreader = new File("./zcartuser_db.txt");
+                                    File Cartreader = new File("./z-current-product_db.txt");
                                     BufferedReader bri = new BufferedReader(new FileReader(Cartreader));
 
                                     String St;
@@ -242,11 +294,41 @@ public class Main {
 
                                     }
 
-                                    System.out.println("Your order is");
-                                    for(int i=0;i<list2.size();i++)
-                                    {
-                                        System.out.println(list2.get(i).email+" "+list2.get(i).brand);
-                                    }
+                                    Invoice a1=new Invoice(username,list2,Email);
+
+                                    File Currentprod=new File(("./z-current-product_db.txt"));
+                                    PrintWriter CurrentProdFileEmpty = new PrintWriter(Currentprod);
+                                    PrintWriter Writer = new PrintWriter(CurrentProdFileEmpty);
+                                    Writer.print("");
+                                    Writer.close();
+                                    break;
+
+
+
+                                case '3':
+
+                                        ArrayList<Cart> list3 = new ArrayList<Cart>();
+                                        File CartHistoryReader = new File("./zcartuserHistory_db.txt");
+                                        BufferedReader brin = new BufferedReader(new FileReader(CartHistoryReader));
+
+                                        String ST;
+                                        while ((ST = brin.readLine()) != null)
+                                        {
+                                            String[] data=ST.split(" ");
+                                            if(data[0].equals(Email))
+                                            {
+                                                Cart cART = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]));
+                                                list3.add(cART);
+                                            }
+
+                                        }
+
+                                        Invoice a2=new Invoice(username,list3,Email);
+                                        break;
+
+
+
+
 
 
 
@@ -270,7 +352,7 @@ public class Main {
 
                             }
 
-                        } while (choice != '6');
+                        } while (choice != '5');
 
                     } else {
                         System.out.println("Email and password not valid!");
