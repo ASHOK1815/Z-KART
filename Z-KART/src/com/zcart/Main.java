@@ -17,6 +17,7 @@ public class Main {
     static String username="";
     private static boolean adminloginchecker=true;
 
+
     public static boolean Emailchecker(String email) throws IOException {
 
         File readfile = new File("./zusers_db.txt");
@@ -189,7 +190,10 @@ public class Main {
                             break;
                         }
                     }
+
                     password = userRepository.encryptPassword(password);
+
+
 
 
 //                    System.out.println(password1 + " " + password);
@@ -607,7 +611,7 @@ public class Main {
 
 
                                 default:
-                                    System.out.println("Wrong Input Please Try again!");
+                                    System.out.println("------Moving to the Main Page!--------");
                                     break;
 
 
@@ -632,12 +636,54 @@ public class Main {
                     String emaiL;
                     String passworD;
                     String passworD1;
+                    String oldPassword;
+
                     System.out.println("Enter Your Mail id");
                     emaiL = scan.next();
                     if (!Emailchecker(emaiL)) {
                         System.out.println("Email not registered ! Register Your Mail id");
                         break;
                     }
+                    System.out.println("Enter Your old Password");
+                    oldPassword = scan.next();
+                    oldPassword = userRepository.encryptPassword(oldPassword);
+
+
+
+                    File Update= new File("./zusers_db.txt");
+                    boolean flag=false;
+                    BufferedReader Ad = new BufferedReader(new FileReader(Update));
+                    String t;
+                    String Password_dummy;
+                    while ((t = Ad.readLine()) != null)
+                    {
+                        String[] data=t.split(" ");
+                        if(data[0].equals(emaiL) && data[1].equals(oldPassword))
+                        {
+                            Password_dummy=oldPassword;
+                            flag=true;
+                        }
+
+                    }
+
+                    if(!flag)
+                    {
+                        System.out.println("Old PASSWORD INCORRECT");
+                        break;
+                    }
+                    else
+                    {
+                        System.out.println("PASSWORD AUTHENTICATED");
+                    }
+
+
+
+
+
+
+
+
+
 
                     System.out.println("Password complexity of mandating at least 2 lower case, 2 upper case and 2 numbers with a minimum length of 6");
 
@@ -709,15 +755,15 @@ public class Main {
                         System.out.println("Password did not match Try again!");
                         break;
                     } else {
-                        boolean flag = true;
+                        boolean Flag = true;
                         for (int i = 0; i < passworD.length(); i++) {
                             if (passworD.charAt(i) != passworD1.charAt(i)) {
-                                flag = false;
+                                Flag = false;
                                 break;
                             }
                         }
 
-                        if (!flag) {
+                        if (!Flag) {
                             System.out.println("Password did not match Try again!");
                             break;
                         }
