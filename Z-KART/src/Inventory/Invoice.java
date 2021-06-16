@@ -19,6 +19,8 @@ public class Invoice {
         System.out.println("USER-EMAIL "+Email);
         System.out.println("DATE:- "+Date);
         System.out.println("Time:- "+Time);
+        System.out.println();
+        System.out.println("");
 
 
 
@@ -28,7 +30,8 @@ public class Invoice {
             {
                 TotalPrice+=list2.get(i).price;
                 System.out.println("Invoice Number "+list2.get(i).randomInt);
-              System.out.println("Brand "+list2.get(i).brand+"  "+"Model "+list2.get(i).model+" "+"Price "+list2.get(i).price);
+                System.out.println("Date:-"+list2.get(i).Date);
+                System.out.println("Brand "+list2.get(i).brand+"  "+"Model "+list2.get(i).model+" "+"Price "+list2.get(i).price+list2);
             }
 
 

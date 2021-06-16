@@ -27,7 +27,7 @@ public class Main {
             String[] data=st.split(" ");
             if(data[0].equals(email))
             {
-                System.out.println("Email id alraedy exist!. Try to login");
+
                 return true;
             }
         }
@@ -87,6 +87,7 @@ public class Main {
             System.out.println("Welcome to Z-kart");
             System.out.println("1:Register");
             System.out.println("2:Login");
+            System.out.println("3:Password Change");
             System.out.println("Q:Quit");
             choice =scan.next().charAt(0);
             switch(choice) {
@@ -100,6 +101,7 @@ public class Main {
                     email = scan.next();
 
                     if (Emailchecker(email)) {
+                        System.out.println("Email id alraedy exist!. Try to login");
                         break;
                     }
 
@@ -108,14 +110,68 @@ public class Main {
                     System.out.println("Enter Your Mobile Number");
                     mobileNumber = scan.nextLong();
                     scan.nextLine();
+                    System.out.println("Password complexity of mandating at least 2 lower case, 2 upper case and 2 numbers with a minimum length of 6");
+
                     System.out.println("Enter Your Password");
-                    password = scan.nextLine();
+                    password = scan.next();
 
                     System.out.println("Enter Password again");
-                    password1 = scan.nextLine();
-                    if (password.length() != password1.length()) {
+                    password1 = scan.next();
+
+
+                    int upper = 0, lower = 0, number = 0, special = 0;
+
+                    for(int i = 0; i < password.length(); i++)
+                    {
+                        char ch = password.charAt(i);
+                        if (ch >= 'A' && ch <= 'Z')
+                            upper++;
+                        else if (ch >= 'a' && ch <= 'z')
+                            lower++;
+                        else if (ch >= '0' && ch <= '9')
+                            number++;
+                        else
+                            special++;
+                    }
+
+
+
+
+                    if(upper<2 || lower<2 || number<2  || password.length()<6)
+                    {
+                        System.out.println("Password condition not match Try again!");
+                        upper=0;
+                        lower=0;
+                        number=0;
+                        break;
+
+                    }
+                    else if(upper==0 && lower==0 && number==0 && special==0)
+                    {
+
+
+                        for(int i = 0; i < password1.length(); i++)
+                        {
+                            char ch = password1.charAt(i);
+                            if (ch >= 'A' && ch <= 'Z')
+                                upper++;
+                            else if (ch >= 'a' && ch <= 'z')
+                                lower++;
+                            else if (ch >= '0' && ch <= '9')
+                                number++;
+                            else
+                                special++;
+                        }
+                        if(upper<2 || lower<2 || number<2  || password.length()<6)
+                        {
+                            System.out.println("Password condition not match Try again!");
+                            break;
+                        }
+                    }
+                    else if (password.length() != password1.length()) {
                         System.out.println("Password did not match Try again!");
                         break;
+
                     } else {
                         boolean flag = true;
                         for (int i = 0; i < password.length(); i++) {
@@ -142,8 +198,10 @@ public class Main {
                     System.out.println(customer.getName() + " added successfully");
                     break;
                 case '2':
+
                     String Email;
                     String Password;
+
                     System.out.println("Enter Your mail id");
                     Email = scan.next();
                     System.out.println("Enter password");
@@ -542,24 +600,9 @@ public class Main {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                default:break;
+                                default:
+                                    System.out.println("Wrong Input Please Try again!");
+                                    break;
 
 
                             }
@@ -572,10 +615,155 @@ public class Main {
                         Writer.print("");
                         Writer.close();
 
-
                     } else {
                         System.out.println("Email and password not valid!");
                     }
+
+
+
+                case '3':
+
+                    String emaiL;
+                    String passworD;
+                    String passworD1;
+                    System.out.println("Enter Your Mail id");
+                    emaiL = scan.next();
+                    if (!Emailchecker(emaiL)) {
+                        System.out.println("Email not registered ! Register Your Mail id");
+                        break;
+                    }
+
+                    System.out.println("Password complexity of mandating at least 2 lower case, 2 upper case and 2 numbers with a minimum length of 6");
+
+                    System.out.println("Enter Your Password");
+                    passworD = scan.next();
+
+
+                    System.out.println("Enter Password again");
+                    passworD1 = scan.next();
+
+
+                    int Upper = 0, Lower = 0, Number = 0, Special = 0;
+
+                    for(int i = 0; i < passworD.length(); i++)
+                    {
+                        char ch = passworD.charAt(i);
+
+                        if (ch >= 'A' && ch <= 'Z')
+                            Upper++;
+                        else if (ch >= 'a' && ch <= 'z')
+                            Lower++;
+                        else if (ch >= '0' && ch <= '9')
+                            Number++;
+                        else
+                            Special++;
+                    }
+
+
+
+
+
+
+                    if(Upper<2 || Lower<2 || Number<2  || passworD.length()<6)
+                    {
+                        System.out.println("Password condition not match Try again!");
+                        upper=0;
+                        lower=0;
+                        number=0;
+                        special=0;
+                        break;
+
+                    }
+                    else if(Upper==0 && Lower==0  && Number==0 && Special==0)
+                    {
+
+
+                        for(int i = 0; i < passworD1.length(); i++)
+                        {
+                            char ch = passworD1.charAt(i);
+                            if (ch >= 'A' && ch <= 'Z')
+                                Upper++;
+                            else if (ch >= 'a' && ch <= 'z')
+                                Lower++;
+                            else if (ch >= '0' && ch <= '9')
+                                Number++;
+                            else
+                                Special++;
+                        }
+
+                        if(Upper<2 || Lower<2 || Number<2  || passworD1.length()<6)
+                        {
+                            System.out.println("Hello");
+                            System.out.println("Password condition not match Try again!");
+                            break;
+                        }
+
+                    }
+                    else if (passworD.length() != passworD1.length()) {
+                        System.out.println("Password did not match Try again!");
+                        break;
+                    } else {
+                        boolean flag = true;
+                        for (int i = 0; i < passworD.length(); i++) {
+                            if (passworD.charAt(i) != passworD1.charAt(i)) {
+                                flag = false;
+                                break;
+                            }
+                        }
+
+                        if (!flag) {
+                            System.out.println("Password did not match Try again!");
+                            break;
+                        }
+                    }
+                    passworD = userRepository.encryptPassword(passworD);
+
+
+                    ArrayList<Customer> list2 = new ArrayList<Customer>();
+                    File AdminUpdate= new File("./zusers_db.txt");
+                    BufferedReader Adu = new BufferedReader(new FileReader(AdminUpdate));
+                    String temp;
+                    while ((temp = Adu.readLine()) != null)
+                    {
+                        String[] data=temp.split(" ");
+                        Customer cust=new Customer(data[0],data[1],data[2], Long.parseLong(data[3]));
+                        list2.add(cust);
+                    }
+
+
+
+                    for(int i=0;i<list2.size();i++)
+                    {
+                        if(list2.get(i).email.equals(emaiL))
+                        {
+                            list2.get(i).password=passworD;
+                        }
+                    }
+
+
+                    FileWriter fileWriter = new FileWriter(AdminUpdate,true);
+                    PrintWriter writer = new PrintWriter(AdminUpdate);
+                    writer.print("");
+                    writer.close();
+
+                    BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
+                    for(int i=0;i<list2.size();i++)
+                    {
+                        bufferedWriter.write(list2.get(i).toString());
+                    }
+
+                    bufferedWriter.close();
+                    fileWriter.close();
+
+                    System.out.println("Password change Successfully !");
+
+                    break;
+
+
+                default:
+                    System.out.println("Wrong Input Please Try again!");
+                    break;
+
 
             }
 
