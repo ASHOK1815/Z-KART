@@ -13,7 +13,7 @@ public class Admin {
          System.out.println();
          System.out.println("-----------LIST OF ITEMS  AND THE CURRENT STOCK-------------------");
          System.out.println();
-         System.out.println("BRAND   "+"     MODEL   "+"    STOCK  " );
+         System.out.println("BRAND   "+"    MODEL   "+"    STOCK  " );
 
 
      }
@@ -27,7 +27,7 @@ public class Admin {
          {
              if(list1.get(i).stock<10)
              {
-                 System.out.println(list1.get(i).brand+"       "+list1.get(i).model+"           "+list1.get(i).stock);
+                 System.out.println(list1.get(i).brand+"     "+list1.get(i).model+"           "+list1.get(i).stock);
              }
          }
 

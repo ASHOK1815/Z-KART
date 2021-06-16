@@ -164,7 +164,7 @@ public class Main {
                             list2.add(cust);
                         }
 
-                        if(adminloginchecker)
+                        if(adminloginchecker && Password=="xyzzy")
                         {
                             String Password1;
                             String Password2;
@@ -221,6 +221,8 @@ public class Main {
                             bufferedWriter.close();
                             fileWriter.close();
 
+                            System.out.println("Password change Successfully !");
+
 
 
 
@@ -229,6 +231,75 @@ public class Main {
                         else
                         {
                             System.out.println("Ashok");
+
+                            Admin admin=new Admin();
+
+                            ArrayList<Product> list1 = new ArrayList<Product>();
+                            File Pro = new File("./z-kart_db.txt");
+                            BufferedReader br = new BufferedReader(new FileReader(Pro));
+                            String st;
+                            while ((st = br.readLine()) != null)
+                            {
+                                String[] data=st.split(" ");
+                                Product prod=new Product(data[0],data[1],data[2],Double.parseDouble(data[3]),Integer.parseInt(data[4]));
+                                list1.add(prod);
+                            }
+
+                            admin.displayCurrentStockDetails(list1);
+
+                            int AdminPersmission;
+                            System.out.println("Want to Update stock and add product::--PRESS: 1");
+                            AdminPersmission=scan.nextInt();
+                            if(AdminPersmission==1)
+                            {
+
+                                String brandname=null;
+                                String modelname=null;
+                                System.out.println("Enter the Brand Name and Model");
+                                brandname=scan.next();
+                                modelname=scan.next();
+                                int stockvalue=0;
+                                System.out.println("How many stock you want to add in  "+brandname);
+                                stockvalue=scan.nextInt();
+
+                                for(int i=0;i<list1.size();i++)
+                                {
+                                    if(list1.get(i).brand.equals(brandname) && list1.get(i).model.equals(modelname))
+                                    {
+                                        list1.get(i).stock=list1.get(i).stock+stockvalue;
+                                    }
+                                }
+
+
+                                FileWriter fileWriter = new FileWriter(Pro);
+                                PrintWriter writer = new PrintWriter(Pro);
+                                writer.print("");
+                                writer.close();
+
+                                BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
+                                for(int i=0;i<list1.size();i++)
+                                {
+                                    bufferedWriter.write(list1.get(i).toString());
+                                }
+
+                                bufferedWriter.close();
+                                fileWriter.close();
+                                System.out.println("Stock Updated Successfully");
+
+
+
+
+
+
+                            }
+                            else
+                            {
+                                System.out.println("Thanks for checking out Stock ");
+                                System.out.println("-----------Z-KART-------------");
+                            }
+
+
+
                         }
 
 
