@@ -1,21 +1,22 @@
 package com.zcart;
 
+import Inventory.Cart;
+import Inventory.Invoice;
+import Inventory.Product;
+import user.Customer;
+import user.UserRepository;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
-import user.Customer;
-import java.io.File;
-import Inventory.*;
-
-import user.UserRepository;
 
 public class Main {
 
     static String username="";
+    private static boolean adminloginchecker=true;
+
     public static boolean Emailchecker(String email) throws IOException {
 
         File readfile = new File("./zusers_db.txt");
@@ -30,6 +31,27 @@ public class Main {
                 return true;
             }
         }
+        br.close();
+
+        return false;
+    }
+
+    public static boolean Adminchecker(String email,String Password) throws IOException {
+
+        File readfile = new File("./zusers_db.txt");
+        BufferedReader br = new BufferedReader(new FileReader(readfile));
+        String st;
+
+        while ((st = br.readLine()) != null)
+        {
+            String[] data=st.split(" ");
+            if(data[2].equals("Admin") && data[1].equals(Password))
+            {
+                username=data[2];
+                return true;
+            }
+        }
+        br.close();
 
         return false;
     }
@@ -50,6 +72,7 @@ public class Main {
                 return true;
             }
         }
+        br.close();
 
         return false;
     }
@@ -126,7 +149,91 @@ public class Main {
                     System.out.println("Enter password");
                     Password = scan.next();
                     Password = userRepository.encryptPassword(Password);
-                    if (Passwordchecker(Email, Password)) {
+
+                    if(Adminchecker(Email,Password))
+                    {
+
+                        ArrayList<Customer> list2 = new ArrayList<Customer>();
+                        File AdminUpdate= new File("./zusers_db.txt");
+                        BufferedReader Adu = new BufferedReader(new FileReader(AdminUpdate));
+                        String temp;
+                        while ((temp = Adu.readLine()) != null)
+                        {
+                            String[] data=temp.split(" ");
+                            Customer cust=new Customer(data[0],data[1],data[2], Long.parseLong(data[3]));
+                            list2.add(cust);
+                        }
+
+                        if(adminloginchecker)
+                        {
+                            String Password1;
+                            String Password2;
+                            System.out.println("--WELCOME TO THE ADMIN SECTION---");
+                            System.out.println("For Security Purpose Kindly change Your Password and relogin again");
+                            System.out.println("Enter new password");
+                            Password1=scan.next();
+                            System.out.println("Enter password again");
+                            Password2=scan.next();
+                            if (Password1.length() != Password2.length()) {
+                                System.out.println("Password did not match Try again!");
+                                break;
+                            }
+                            else {
+                                boolean flag = true;
+                                for (int i = 0; i < Password1.length(); i++) {
+                                    if (Password1.charAt(i) != Password2.charAt(i)) {
+                                        flag = false;
+                                        break;
+                                    }
+                                }
+                                if (!flag) {
+                                    System.out.println("Password did not match Try again!");
+                                    break;
+                                }
+                            }
+
+
+
+
+
+                            password = userRepository.encryptPassword(Password1);
+
+                            for(int i=0;i<list2.size();i++)
+                            {
+                                if(list2.get(i).name.equals("Admin"))
+                                {
+                                    list2.get(i).password=password;
+                                }
+                            }
+
+
+                            FileWriter fileWriter = new FileWriter(AdminUpdate,true);
+                            PrintWriter writer = new PrintWriter(AdminUpdate);
+                            writer.print("");
+                            writer.close();
+
+                            BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
+                            for(int i=0;i<list2.size();i++)
+                            {
+                                bufferedWriter.write(list2.get(i).toString());
+                            }
+
+                            bufferedWriter.close();
+                            fileWriter.close();
+
+
+
+
+                            adminloginchecker=false;
+                        }
+                        else
+                        {
+                            System.out.println("Ashok");
+                        }
+
+
+                    }
+                    else if (Passwordchecker(Email, Password)) {
 
                         char Choice;
                         do {
@@ -266,8 +373,14 @@ public class Main {
                                     LocalTime TimeObj = LocalTime.now();
                                     LocalDate DateObj = LocalDate.now();
 
+                                    int randomInt;
 
-                                    Cart cart = new Cart(Email,Brand,addCategory,mode,price,TimeObj.toString(),DateObj.toString());
+                                    int min = 1000;
+                                    int max = 9999;
+
+
+                                    randomInt = (int)Math.floor(Math.random()*(max-min+1)+min);
+                                    Cart cart = new Cart(Email,Brand,addCategory,mode,price,TimeObj.toString(),DateObj.toString(),randomInt);
 
 
                                     File currentprod=new File(("./z-current-product_db.txt"));
@@ -299,7 +412,7 @@ public class Main {
                                         if(data[0].equals(Email))
                                         {
 
-                                            Cart cART = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]),data[5],data[6]);
+                                            Cart cART = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]),data[5],data[6],Integer.parseInt(data[7]));
                                             list2.add(cART);
                                         }
 
@@ -329,7 +442,7 @@ public class Main {
                                             if(data[0].equals(Email))
                                             {
 
-                                                Cart cART = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]),data[5],data[6]);
+                                                Cart cART = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]),data[5],data[6],Integer.parseInt(data[7]));
                                                 list3.add(cART);
                                             }
 
@@ -359,12 +472,12 @@ public class Main {
 
 
 
-
+                                default:break;
 
 
                             }
 
-                        } while (choice != '5');
+                        } while (Choice !='5');
                        // CLEARING THE INVOICE CURRENT FILE
                         File Currentprod=new File(("./z-current-product_db.txt"));
                         PrintWriter CurrentProdFileEmpty = new PrintWriter(Currentprod);

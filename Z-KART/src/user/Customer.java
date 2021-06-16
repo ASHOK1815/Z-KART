@@ -17,7 +17,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return email + " "+ password+ " "+name+" "+mobileNumber+"\n";
+        return email+" "+password+" "+name+" "+mobileNumber+"\n";
     }
 
     public void setEmail(String email) {

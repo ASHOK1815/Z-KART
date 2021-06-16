@@ -9,8 +9,11 @@ public class Cart {
     public double price;
     public String Time;
     public String Date;
+    public int randomInt;
 
-    public Cart( String email, String brand, String category,String model, double price,String Time,String Date)
+
+
+    public Cart( String email, String brand, String category,String model, double price,String Time,String Date,int radomnumber)
     {
         this.email = email;
         this.brand = brand;
@@ -19,6 +22,7 @@ public class Cart {
         this.price=price;
         this.Time=Time;
         this.Date=Date;
+        randomInt = radomnumber;
 
     }
 
@@ -26,7 +30,7 @@ public class Cart {
 
     @Override
     public  String toString() {
-        return email + " "+ brand+ " "+category+" "+model+" "+price+" "+Date+" "+Time+" "+"\n";
+        return email + " "+ brand+ " "+category+" "+model+" "+price+" "+Date+" "+Time+" "+randomInt+"\n";
     }
 
 

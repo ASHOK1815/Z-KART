@@ -5,6 +5,8 @@ public class Invoice {
 
     String email;
     Double TotalPrice= Double.valueOf(0);
+
+
     public Invoice(String username,ArrayList<Cart> list2,String Email,String Date,String Time)
     {
 
@@ -25,6 +27,7 @@ public class Invoice {
             if(list2.get(i).email.equals(Email))
             {
                 TotalPrice+=list2.get(i).price;
+                System.out.println("Invoice Number "+list2.get(i).randomInt);
               System.out.println("Brand "+list2.get(i).brand+"  "+"Model "+list2.get(i).model+" "+"Price "+list2.get(i).price);
             }
 
