@@ -105,8 +105,11 @@ public class Main {
                         break;
                     }
 
-                    System.out.println("Enter Your Name");
+                    System.out.println("Enter Your first Name");
                     name = scan.next();
+                    scan.nextLine();
+
+
                     System.out.println("Enter Your Mobile Number");
                     mobileNumber = scan.nextLong();
                     scan.nextLine();
@@ -285,6 +288,7 @@ public class Main {
 
 
                             adminloginchecker=false;
+                            break;
                         }
                         else
                         {
@@ -421,7 +425,7 @@ public class Main {
                                             for(int i=0;i<list1.size();i++)
                                             {
 
-                                                if((list1.get(i).category).equals("Mobile"))
+                                                if((list1.get(i).category).equalsIgnoreCase("Mobile"))
                                                 {
                                                     price=list1.get(i).price;
                                                     System.out.println("BRAND :-" +list1.get(i).brand);
@@ -439,7 +443,7 @@ public class Main {
                                             addCategory="Laptop";
                                             for(int i=0;i<list1.size();i++)
                                             {
-                                                if((list1.get(i).category).equals("Laptop"))
+                                                if((list1.get(i).category).equalsIgnoreCase("Laptop"))
                                                 {
                                                     price=list1.get(i).price;
                                                     System.out.println("BRAND :-" +list1.get(i).brand);
@@ -457,7 +461,7 @@ public class Main {
                                             addCategory="Tablet";
                                             for(int i=0;i<list1.size();i++)
                                             {
-                                                if((list1.get(i).category).equals("Tablet"))
+                                                if((list1.get(i).category).equalsIgnoreCase("Tablet"))
                                                 {
                                                     price=list1.get(i).price;
                                                     System.out.println("BRAND :-" +list1.get(i).brand);
@@ -478,7 +482,7 @@ public class Main {
                                         boolean flag=true;
                                         for(int i=0;i<list1.size();i++)
                                         {
-                                            if((list1.get(i).brand).equals(Brand) && (list1.get(i).model).equals(mode))
+                                            if((list1.get(i).brand).equalsIgnoreCase(Brand) && (list1.get(i).model).equalsIgnoreCase(mode))
                                             {
                                                 if(list1.get(i).stock==0)
                                                 {
@@ -518,6 +522,8 @@ public class Main {
                                     LocalTime TimeObj = LocalTime.now();
                                     LocalDate DateObj = LocalDate.now();
 
+
+
                                     int randomInt;
 
                                     int min = 1000;
@@ -525,7 +531,7 @@ public class Main {
 
 
                                     randomInt = (int)Math.floor(Math.random()*(max-min+1)+min);
-                                    Cart cart = new Cart(Email,Brand,addCategory,mode,price,TimeObj.toString(),DateObj.toString(),randomInt);
+                                    Cart cart = new Cart(Email,Brand,addCategory,mode,price,DateObj.toString(),TimeObj.toString(),randomInt);
 
 
                                     File currentprod=new File(("./z-current-product_db.txt"));
@@ -620,7 +626,7 @@ public class Main {
                     }
 
 
-
+                    break;
                 case '3':
 
                     String emaiL;

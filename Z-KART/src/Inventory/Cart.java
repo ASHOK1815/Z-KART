@@ -20,8 +20,8 @@ public class Cart {
         this.category = category;
         this.model = model;
         this.price=price;
-        this.Time=Time;
         this.Date=Date;
+        this.Time=Time;
         randomInt = radomnumber;
 
     }
@@ -30,7 +30,7 @@ public class Cart {
 
     @Override
     public  String toString() {
-        return email + " "+ brand+ " "+category+" "+model+" "+price+" "+Date+" "+Time+" "+randomInt+"\n";
+        return email+" "+ brand+" "+category+" "+model+" "+price+" "+Date+" "+Time+" "+randomInt+"\n";
     }
 
 

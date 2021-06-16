@@ -7,7 +7,7 @@ public class Invoice {
     Double TotalPrice= Double.valueOf(0);
 
 
-    public Invoice(String username,ArrayList<Cart> list2,String Email,String Date,String Time)
+    public Invoice(String username,ArrayList<Cart> list2,String Email,String date,String time)
     {
 
         System.out.println("------------------------------Z-KART-----------------------------------------");
@@ -17,10 +17,9 @@ public class Invoice {
         System.out.println();
         System.out.println("USER-NAME "+username);
         System.out.println("USER-EMAIL "+Email);
-        System.out.println("DATE:- "+Date);
-        System.out.println("Time:- "+Time);
+        System.out.println("DATE:- "+date);
+        System.out.println("Time:- "+time);
         System.out.println();
-        System.out.println("");
 
 
 
@@ -31,8 +30,10 @@ public class Invoice {
                 TotalPrice+=list2.get(i).price;
                 System.out.println("Invoice Number "+list2.get(i).randomInt);
                 System.out.println("Date:-"+list2.get(i).Date);
-                System.out.println("Brand "+list2.get(i).brand+"  "+"Model "+list2.get(i).model+" "+"Price "+list2.get(i).price+list2);
+                System.out.println("Brand:--"+list2.get(i).brand+"  "+"Model:--"+list2.get(i).model+" "+"Price:--"+list2.get(i).price);
             }
+
+            System.out.println();
 
 
         }
