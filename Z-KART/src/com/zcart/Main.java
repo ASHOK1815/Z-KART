@@ -1,6 +1,8 @@
 package com.zcart;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -261,7 +263,11 @@ public class Main {
                                     fileWriter.close();
 
 
-                                    Cart cart = new Cart(Email,Brand,addCategory,mode,price);
+                                    LocalTime TimeObj = LocalTime.now();
+                                    LocalDate DateObj = LocalDate.now();
+
+
+                                    Cart cart = new Cart(Email,Brand,addCategory,mode,price,TimeObj.toString(),DateObj.toString());
 
 
                                     File currentprod=new File(("./z-current-product_db.txt"));
@@ -283,24 +289,25 @@ public class Main {
                                     BufferedReader bri = new BufferedReader(new FileReader(Cartreader));
 
                                     String St;
+                                    LocalTime TimeOBJ = LocalTime.now();
+                                    LocalDate DateOBJ = LocalDate.now();
+
+
                                     while ((St = bri.readLine()) != null)
                                     {
                                         String[] data=St.split(" ");
                                         if(data[0].equals(Email))
                                         {
-                                            Cart cART = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]));
+
+                                            Cart cART = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]),data[5],data[6]);
                                             list2.add(cART);
                                         }
 
                                     }
 
-                                    Invoice a1=new Invoice(username,list2,Email);
+                                    Invoice a1=new Invoice(username,list2,Email,TimeOBJ.toString(),DateOBJ.toString());
 
-                                    File Currentprod=new File(("./z-current-product_db.txt"));
-                                    PrintWriter CurrentProdFileEmpty = new PrintWriter(Currentprod);
-                                    PrintWriter Writer = new PrintWriter(CurrentProdFileEmpty);
-                                    Writer.print("");
-                                    Writer.close();
+
                                     break;
 
 
@@ -311,19 +318,24 @@ public class Main {
                                         File CartHistoryReader = new File("./zcartuserHistory_db.txt");
                                         BufferedReader brin = new BufferedReader(new FileReader(CartHistoryReader));
 
+
+                                        LocalTime TIMEOBJ = LocalTime.now();
+                                        LocalDate DATEOBJ = LocalDate.now();
+
                                         String ST;
                                         while ((ST = brin.readLine()) != null)
                                         {
                                             String[] data=ST.split(" ");
                                             if(data[0].equals(Email))
                                             {
-                                                Cart cART = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]));
+
+                                                Cart cART = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]),data[5],data[6]);
                                                 list3.add(cART);
                                             }
 
                                         }
 
-                                        Invoice a2=new Invoice(username,list3,Email);
+                                        Invoice a2=new Invoice(username,list3,Email,TIMEOBJ.toString(),DATEOBJ.toString());
                                         break;
 
 
@@ -353,6 +365,13 @@ public class Main {
                             }
 
                         } while (choice != '5');
+                       // CLEARING THE INVOICE CURRENT FILE
+                        File Currentprod=new File(("./z-current-product_db.txt"));
+                        PrintWriter CurrentProdFileEmpty = new PrintWriter(Currentprod);
+                        PrintWriter Writer = new PrintWriter(CurrentProdFileEmpty);
+                        Writer.print("");
+                        Writer.close();
+
 
                     } else {
                         System.out.println("Email and password not valid!");

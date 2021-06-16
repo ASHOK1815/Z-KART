@@ -5,7 +5,7 @@ public class Invoice {
 
     String email;
     Double TotalPrice= Double.valueOf(0);
-    public Invoice(String username,ArrayList<Cart> list2,String Email)
+    public Invoice(String username,ArrayList<Cart> list2,String Email,String Date,String Time)
     {
 
         System.out.println("------------------------------Z-KART-----------------------------------------");
@@ -15,6 +15,8 @@ public class Invoice {
         System.out.println();
         System.out.println("USER-NAME "+username);
         System.out.println("USER-EMAIL "+Email);
+        System.out.println("DATE:- "+Date);
+        System.out.println("Time:- "+Time);
 
 
 
