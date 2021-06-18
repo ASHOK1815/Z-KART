@@ -81,6 +81,7 @@ public class Filehandler {
                 Cart cart = new Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]),data[5],data[6],Integer.parseInt(data[7]));
                 list1.add(cart);
             }
+            adu.close();
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -106,6 +107,7 @@ public class Filehandler {
                 Inventory.Cart cart = new Inventory.Cart(data[0],data[1],data[2],data[3],Double.parseDouble(data[4]),data[5],data[6],Integer.parseInt(data[7]));
                 list1.add(cart);
             }
+            adu.close();
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -123,14 +125,15 @@ public class Filehandler {
         File AdminUpdate= new File("./File_db/zusers_db.txt");
 
         try{
-            BufferedReader Adu = new BufferedReader(new FileReader(AdminUpdate));
+            BufferedReader adu = new BufferedReader(new FileReader(AdminUpdate));
             String temp;
-            while ((temp = Adu.readLine()) != null)
+            while ((temp = adu.readLine()) != null)
             {
                 String[] data=temp.split(" ");
                 Customer cust=new Customer(data[0],data[1],data[2], Long.parseLong(data[3]));
                 list1.add(cust);
             }
+            adu.close();
         } catch (IOException e)
         {
             e.printStackTrace();
