@@ -1,0 +1,3 @@
+rupender20@gmail.com apple Mobile 6s 12000.0 11:30:51.058894628 2021-06-18 4764
+testing12@gmail.com motorola Mobile g 12000.0 14:08:37.034753173 2021-06-18 4299
+testing12@gmail.com google Tablet chromebook 8000.0 14:08:37.034753173 2021-06-18 9095
