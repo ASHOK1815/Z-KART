@@ -13,7 +13,7 @@ public class Cart {
 
 
 
-    public Cart( String email, String brand, String category,String model, double price,String Time,String Date,int radomnumber)
+    public Cart( String email, String brand, String category,String model, double price,String Time,String Date,int randomNumber)
     {
         this.email = email;
         this.brand = brand;
@@ -22,7 +22,7 @@ public class Cart {
         this.price=price;
         this.Date=Date;
         this.Time=Time;
-        randomInt = radomnumber;
+        randomInt = randomNumber;
 
     }
 

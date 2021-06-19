@@ -3,6 +3,7 @@ package product;
 import Inventory.Cart;
 import Inventory.Invoice;
 import customer.Customer;
+import customer.CustomerCoupen;
 import filehandler.Filehandler;
 
 import java.io.*;
@@ -17,6 +18,7 @@ import filehandler.Filehandler;
 public class Shopping {
 
     Filehandler filehandler=new Filehandler();
+
 
     Scanner scan=new Scanner(System.in);
 
@@ -147,18 +149,20 @@ public class Shopping {
         randomNumber = (int)Math.floor(Math.random()*(max-min+1)+min);
 
         File productFIle=new File(("./File_db/z-current-product_db.txt"));
-        File userHistoryFIle = new File("./File_db/zcartuserHistory_db.txt");
+
         if(flag)
         {
-            Cart cart = new Cart(email,brandName,category,modelName,price/10.0,dateObj.toString(),timeObj.toString(),randomNumber);
+            price=price-(price/10.0);
+
+            Cart cart = new Cart(email,brandName,category,modelName,price,dateObj.toString(),timeObj.toString(),randomNumber);
             filehandler.addCart(cart,productFIle);
-            filehandler.addCart(cart,userHistoryFIle);
+
         }
         else
         {
             Cart cart = new Cart(email,brandName,category,modelName,price,dateObj.toString(),timeObj.toString(),randomNumber);
             filehandler.addCart(cart,productFIle);
-            filehandler.addCart(cart,userHistoryFIle);
+
         }
 
         System.out.println("Product added successfully to Cart");
@@ -177,6 +181,7 @@ public class Shopping {
 
         if((int)totalAmount>=20000)
         {
+            System.out.println("yes product available");
             return  true;
         }
 
@@ -192,9 +197,10 @@ public class Shopping {
         {
             System.out.println("------Welcome to Z-kart---------");
             System.out.println("1:Shopping");
-            System.out.println("2:ORDER-INVOICE");
-            System.out.println("3:ORDER-HISTORY");
-            System.out.println("4:Log-Out");
+            System.out.println("2:ORDER-HISTORY");
+            System.out.println("3:CHECK-OUT");
+            System.out.println("4:SHOW-CART");
+            System.out.println("5:Log-Out");
             Choice = scan.next().charAt(0);
             int counter=0;
             switch (Choice)
@@ -235,68 +241,48 @@ public class Shopping {
                     if(category==1)
                     {
                         productPurchase_Customer(list1,addCategory,email);
-//                        counter++;
-//                        ArrayList<Cart>totalProductCart=filehandler.readCurrentProductUser();
-//                        if(counter==3 || getTotal(totalProductCart))
-//                        {
-//                            int randomNumber;
-//                            int min = 100000;
-//                            int max = 999999;
-//                            randomNumber = (int)Math.floor(Math.random()*(max-min+1)+min);
-//                            ArrayList<Customer>allCustomer =filehandler.readFileDataCustomer();
-//                            ArrayList<Customer>temp=new ArrayList<Customer>();
-//
-//
-//                            String emailId;
-//                            String password;
-//                            String name;
-//                            long mobileNumber;
-//
-//
-//                            for(int i=0;i<allCustomer.size();i++)
-//                            {
-//                                if(allCustomer.get(i).email.equals(email))
-//                                {
-//                                      emailId=email;
-//                                      password=allCustomer.get(i).password;
-//                                      name=allCustomer.get(i).name;
-//                                      mobileNumber=allCustomer.get(i).mobileNumber;
-//                                      Customer modifyCustomer=new Customer(emailId,password,name,mobileNumber,randomNumber);
-//                                      temp.add(modifyCustomer);
-//
-//
-//                                 }
-//                                else
-//                                {
-//                                    emailId=email;
-//                                    password=allCustomer.get(i).password;
-//                                    name=allCustomer.get(i).name;
-//                                    mobileNumber=allCustomer.get(i).mobileNumber;
-//                                    Customer modifyCustomer=new Customer(emailId,password,name,mobileNumber,0);
-//                                    temp.add(modifyCustomer);
-//
-//                                }
-//
-//                            }
-//
-//
-//                            File file=new File("./File_db/zusers_db.txt");
-//                            filehandler.fileDataVanisher(file);
-//
-//                            for(int i=0;i<allCustomer.size();i++)
-//                            {
-//                                filehandler.addUser(allCustomer.get(i),file);
-//                            }
-//
-//                            System.out.println("Tokens has been generated");
+                        counter++;
+                        ArrayList<Cart>totalProductCart=filehandler.readCurrentProductUser();
+                       if(counter==3 || getTotal(totalProductCart))
+                      {
+                            int randomNumber;
+                            int min = 100000;
+                            int max = 999999;
+                            randomNumber = (int)Math.floor(Math.random()*(max-min+1)+min);
+                            ArrayList<Customer>allCustomer =filehandler.readFileDataCustomer();
+                            ArrayList<Customer>arrayList=new ArrayList<Customer>();
+
+                          File file = new File("./File_db/zusers_db.txt");
+                          try{
+
+                              FileWriter fileWriter = new FileWriter(file, false);
+                              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                              for(int i=0;i<allCustomer.size();i++)
+                              {
+                                  if(email.equalsIgnoreCase(allCustomer.get(i).email))
+                                  {
+                                      CustomerCoupen customerCoupen=new CustomerCoupen(email,allCustomer.get(i).password,allCustomer.get(i).name,allCustomer.get(i).mobileNumber,randomNumber);
+                                      bufferedWriter.write(customerCoupen.toString());
+                                  }
+                                  else
+                                  {
+                                      bufferedWriter.write(allCustomer.get(i).toString());
+                                  }
+
+
+                              }
+                              bufferedWriter.close();
+                              fileWriter.close();
+                          } catch (IOException e)
+                          {
+                              e.printStackTrace();
+                          }
+
+                          System.out.println("Tokens has been generated");
 
 
 
-
-
-
-
-  //                      }
+                        }
                     }
                     else
                     {
@@ -306,22 +292,96 @@ public class Shopping {
                     }
                     break;
 
-                case '2':
-                    ArrayList<Cart> listCart =filehandler.readCurrentProductUser();
-                    Invoice invoice=new Invoice(listCart,email,timeObj.toString(),dateObj.toString());
-                    break;
 
+                case '2':
+                    ArrayList<Cart> listHistoryCart =filehandler.readHistoryProductUser();
+
+                    ArrayList<Cart> showCart=new ArrayList<Cart>();
+
+                    for(int i=0;i<listHistoryCart.size();i++)
+                    {
+                        if(listHistoryCart.get(i).email.equals(email))
+                        {
+                            showCart.add(listHistoryCart.get(i));
+                        }
+
+
+                    }
+
+
+                    Invoice invoiceObject=new Invoice(showCart,email,timeObj.toString(),dateObj.toString(),0);
+                    break;
 
 
                 case '3':
-                    ArrayList<Cart> listHistoryCart =filehandler.readHistoryProductUser();
-                    Invoice invoiceObject=new Invoice(listHistoryCart,email,timeObj.toString(),dateObj.toString());
+
+                    ArrayList<Cart> cartProduct =filehandler.readCurrentProductUser();
+
+
+                        File userHistoryFIle = new File("./File_db/zcartuserHistory_db.txt");
+
+
+                        int increment=0;
+                        for(int i=0;i<cartProduct.size();i++)
+                        {
+                            if(cartProduct.get(i).email.equals(email))
+                            {
+
+                                filehandler.addCart(cartProduct.get(i),userHistoryFIle);
+                                increment++;
+                            }
+
+
+                        }
+
+                        if(increment==0)
+                        {
+                            System.out.println("------PLEASE ADD SOME PRODUCT IN CART--------");
+                            break;
+                        }
+                        Invoice invoice=new Invoice(cartProduct,email,timeObj.toString(),dateObj.toString());
+
+                        File file = new File("./File_db/z-current-product_db.txt");
+                        filehandler.fileDataVanisher(file);
+
+                        for(int i=0;i<cartProduct.size();i++)
+                        {
+                            if(!cartProduct.get(i).email.equals(email))
+                            {
+                                filehandler.addCart(cartProduct.get(i),file);
+                            }
+
+                        }
+
+
+
                     break;
 
-                default:
 
-                      File file = new File("./File_db/z-current-product_db.txt");
-                      filehandler.fileDataVanisher(file);
+
+                case '4':
+                    ArrayList<Cart> listCart =filehandler.readCurrentProductUser();
+                    ArrayList<Cart> showCart=new ArrayList<Cart>();
+
+                    for(int i=0;i<listCart.size();i++)
+                    {
+                        if(listCart.get(i).email.equals(email))
+                        {
+                            showCart.add(listCart.get(i));
+                        }
+
+
+                    }
+
+
+                    Invoice invoiceObj=new Invoice(showCart,email,timeObj.toString(),dateObj.toString(),0.0);
+                    break;
+
+
+                default:
+                    break;
+
+
 
 
 
@@ -329,7 +389,7 @@ public class Shopping {
 
             }
 
-        } while (Choice !='4');
+        } while (Choice !='5');
 
 
 

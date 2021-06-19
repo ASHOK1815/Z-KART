@@ -2,10 +2,12 @@ package filehandler;
 
 import Inventory.Cart;
 import customer.Customer;
+import customer.CustomerCoupen;
 import product.Product;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Filehandler {
 
@@ -232,6 +234,34 @@ public class Filehandler {
         }
 
     }
+
+
+//    public void overRideFile(File file, Customer customer, CustomerCoupen customerCoupen)
+//    {
+//
+//        try {
+//
+//            Scanner sc = new Scanner(file);
+//
+//            StringBuffer buffer = new StringBuffer();
+//            while (sc.hasNextLine()) {
+//                buffer.append(sc.nextLine()+System.lineSeparator());
+//            }
+//            String oldLine =customer.toString();
+//            sc.close();
+//            String newLine =customerCoupen.toString();
+//            String fileContents = buffer.toString();
+//            fileContents = fileContents.replaceAll(oldLine, newLine);
+//            FileWriter writer = new FileWriter(file);
+//            writer.append(fileContents);
+//            writer.flush();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//    }
 
 
 
