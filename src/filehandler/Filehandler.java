@@ -202,7 +202,8 @@ public class Filehandler {
             while ((st = br.readLine()) != null)
             {
                 String[] data=st.split(" ");
-                if(data[2].equals("Admin") && data[1].equals(Password))
+
+                if( email.equals("admin@zoho.com") && (data[1].equals(Password)))
                 {
                     return true;
                 }

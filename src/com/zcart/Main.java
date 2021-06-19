@@ -157,19 +157,10 @@ public class Main {
             }
         }while(choice!='Q');
 
+        System.out.println("Logout Successfully!");
 
 
-
-
-
-
-
-
-
-
-
-
-            }
+    }
 
 
 }

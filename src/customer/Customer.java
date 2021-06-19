@@ -7,6 +7,7 @@ public class Customer {
     public String password;
     public String name;
     public long mobileNumber;
+    public int coupenCode;
 
     public Customer( String email, String password, String name, long mobileNumber)
     {
@@ -15,6 +16,16 @@ public class Customer {
         this.name = name;
         this.mobileNumber = mobileNumber;
     }
+
+    public Customer( String email, String password, String name, long mobileNumber,int coupenCode)
+    {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.mobileNumber = mobileNumber;
+        this.coupenCode=coupenCode;
+    }
+
 
     @Override
     public String toString() {

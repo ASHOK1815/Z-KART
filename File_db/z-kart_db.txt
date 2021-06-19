@@ -1,4 +1,4 @@
-Mobile Apple 6S 60000.0 2
-Mobile Motorola G 12000.0 7
-Laptop HP Elite 56000.0 0
-Tablet Google ChromeBook 8000.0 11
+Mobile Apple 6S 60000.0 1
+Mobile Motorola G 12000.0 4
+Laptop HP Elite 56000.0 4
+Tablet Google ChromeBook 8000.0 6

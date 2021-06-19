@@ -2,6 +2,7 @@ package product;
 
 import Inventory.Cart;
 import Inventory.Invoice;
+import customer.Customer;
 import filehandler.Filehandler;
 
 import java.io.*;
@@ -11,10 +12,12 @@ import java.util.ArrayList;
 
 import filehandler.Filehandler;
 import java.util.Scanner;
+import filehandler.Filehandler;
 
 public class Shopping {
 
     Filehandler filehandler=new Filehandler();
+
     Scanner scan=new Scanner(System.in);
 
     LocalTime timeObj = LocalTime.now();
@@ -22,14 +25,13 @@ public class Shopping {
 
 
 
-    public double displayUserPrefrenceProduct(ArrayList<Product>list1,String category,double price)
+    public void displayUserPrefrenceProduct(ArrayList<Product>list1,String category)
     {
 
         for(int i=0;i<list1.size();i++)
         {
             if((list1.get(i).category).equalsIgnoreCase(category))
             {
-                price=list1.get(i).price;
                 System.out.println("BRAND :-" +list1.get(i).brand);
                 System.out.println("MODEL :-" +list1.get(i).model);
                 System.out.println("PRICE :-" +list1.get(i).price);
@@ -38,15 +40,65 @@ public class Shopping {
             System.out.println();
         }
 
-        return price;
 
     }
 
-    public void productPurchase_Customer(ArrayList<Product>list1,double price,String category,String email)
+    public int highestStock(ArrayList<Product>productsList)
     {
+        int size=productsList.size();
+        int value=0;
+        for(int i=0;i<size;i++)
+        {
+            if(productsList.get(i).stock>value)
+            {
+                value=productsList.get(i).stock;
+            }
+
+        }
+
+        return value;
+
+    }
+
+
+
+
+
+    public void productPurchase_Customer(ArrayList<Product>list1,String category,String email)
+    {
+        double price=0;
         System.out.println("Enter the brand and model you want to buy");
         String brandName = scan.next();
         String modelName  = scan.next();
+
+
+        int highestStockNumber=highestStock(list1);
+        boolean flag=false;
+
+        if(highestStockNumber!=0)
+        {
+            int size=list1.size();
+            for(int i=0;i<size;i++)
+            {
+                if(brandName.equalsIgnoreCase(list1.get(i).brand)  &&  modelName.equalsIgnoreCase(list1.get(i).model))
+                {
+                    price=list1.get(i).price;
+                    if(list1.get(i).stock==highestStockNumber)
+                    {
+                        flag=true;
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        if(price==0)
+        {
+            System.out.println("Invalid Input..");
+            return;
+        }
+
 
         for(int i=0;i<list1.size();i++)
         {
@@ -93,22 +145,44 @@ public class Shopping {
 
 
         randomNumber = (int)Math.floor(Math.random()*(max-min+1)+min);
-        Cart cart = new Cart(email,brandName,category,modelName,price,dateObj.toString(),timeObj.toString(),randomNumber);
-
 
         File productFIle=new File(("./File_db/z-current-product_db.txt"));
-
-        filehandler.addCart(cart,productFIle);
-
-
         File userHistoryFIle = new File("./File_db/zcartuserHistory_db.txt");
-        filehandler.addCart(cart,userHistoryFIle);
+        if(flag)
+        {
+            Cart cart = new Cart(email,brandName,category,modelName,price/10.0,dateObj.toString(),timeObj.toString(),randomNumber);
+            filehandler.addCart(cart,productFIle);
+            filehandler.addCart(cart,userHistoryFIle);
+        }
+        else
+        {
+            Cart cart = new Cart(email,brandName,category,modelName,price,dateObj.toString(),timeObj.toString(),randomNumber);
+            filehandler.addCart(cart,productFIle);
+            filehandler.addCart(cart,userHistoryFIle);
+        }
 
         System.out.println("Product added successfully to Cart");
 
         return;
     }
 
+    boolean getTotal(ArrayList<Cart>totalProductCart)
+    {
+        double totalAmount=0;
+        for(int i=0;i<totalProductCart.size();i++)
+        {
+            totalAmount+=totalProductCart.get(i).price;
+
+        }
+
+        if((int)totalAmount>=20000)
+        {
+            return  true;
+        }
+
+        return false;
+
+    }
 
 
     public void shoppingDetials(String email)
@@ -122,6 +196,7 @@ public class Shopping {
             System.out.println("3:ORDER-HISTORY");
             System.out.println("4:Log-Out");
             Choice = scan.next().charAt(0);
+            int counter=0;
             switch (Choice)
             {
                 case '1':
@@ -132,26 +207,26 @@ public class Shopping {
                     System.out.println("Type:3-TABLET");
                     int category=scan.nextInt();
                     String addCategory = null;
-                    double price = 0;
+
 
                     if(category==1)
                     {
                         System.out.println("CATEGORY:---MOBILE----------- ");
                         addCategory="Mobile";
-                        price=displayUserPrefrenceProduct(list1,addCategory,price);
+                        displayUserPrefrenceProduct(list1,addCategory);
 
                     }
                     else if(category==2)
                     {
                         System.out.println("CATEGORY:---LAPTOP----------- ");
                         addCategory="Laptop";
-                        price=displayUserPrefrenceProduct(list1,addCategory,price);
+                        displayUserPrefrenceProduct(list1,addCategory);
                     }
                     else if(category==3)
                     {
                         System.out.println("CATEGORY:---Tablet----------- ");
                         addCategory="Tablet";
-                        price=displayUserPrefrenceProduct(list1,addCategory,price);
+                        displayUserPrefrenceProduct(list1,addCategory);
                     }
 
                     System.out.println("Do you want to buy Something:-PRESS:-1      PRESS:-2 QUIT");
@@ -159,7 +234,69 @@ public class Shopping {
 
                     if(category==1)
                     {
-                        productPurchase_Customer(list1,price,addCategory,email);
+                        productPurchase_Customer(list1,addCategory,email);
+//                        counter++;
+//                        ArrayList<Cart>totalProductCart=filehandler.readCurrentProductUser();
+//                        if(counter==3 || getTotal(totalProductCart))
+//                        {
+//                            int randomNumber;
+//                            int min = 100000;
+//                            int max = 999999;
+//                            randomNumber = (int)Math.floor(Math.random()*(max-min+1)+min);
+//                            ArrayList<Customer>allCustomer =filehandler.readFileDataCustomer();
+//                            ArrayList<Customer>temp=new ArrayList<Customer>();
+//
+//
+//                            String emailId;
+//                            String password;
+//                            String name;
+//                            long mobileNumber;
+//
+//
+//                            for(int i=0;i<allCustomer.size();i++)
+//                            {
+//                                if(allCustomer.get(i).email.equals(email))
+//                                {
+//                                      emailId=email;
+//                                      password=allCustomer.get(i).password;
+//                                      name=allCustomer.get(i).name;
+//                                      mobileNumber=allCustomer.get(i).mobileNumber;
+//                                      Customer modifyCustomer=new Customer(emailId,password,name,mobileNumber,randomNumber);
+//                                      temp.add(modifyCustomer);
+//
+//
+//                                 }
+//                                else
+//                                {
+//                                    emailId=email;
+//                                    password=allCustomer.get(i).password;
+//                                    name=allCustomer.get(i).name;
+//                                    mobileNumber=allCustomer.get(i).mobileNumber;
+//                                    Customer modifyCustomer=new Customer(emailId,password,name,mobileNumber,0);
+//                                    temp.add(modifyCustomer);
+//
+//                                }
+//
+//                            }
+//
+//
+//                            File file=new File("./File_db/zusers_db.txt");
+//                            filehandler.fileDataVanisher(file);
+//
+//                            for(int i=0;i<allCustomer.size();i++)
+//                            {
+//                                filehandler.addUser(allCustomer.get(i),file);
+//                            }
+//
+//                            System.out.println("Tokens has been generated");
+
+
+
+
+
+
+
+  //                      }
                     }
                     else
                     {
