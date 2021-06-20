@@ -7,6 +7,7 @@ import filehandler.PassswordVerifier;
 import product.Shopping;
 
 import java.io.File;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -38,7 +39,7 @@ public class Main {
                     String firstPassword;
                     String secondPassword;
                     String name;
-                    long mobileNumber;
+                    long mobileNumber = 0;
                     System.out.println("Enter Your Mail id");
                     email = scan.next();
 
@@ -52,8 +53,18 @@ public class Main {
                     scan.nextLine();
 
                     System.out.println("Enter Your Mobile Number");
-                    mobileNumber = scan.nextLong();
-                    scan.nextLine();
+                    try {
+                        mobileNumber = scan.nextLong();
+
+                    } catch (InputMismatchException e) {
+                        System.out.print("Caution:-- Please enter number between 0-9\n");
+                        scan.next();
+
+                        break;
+                    }
+
+
+
                     System.out.println("Password complexity of mandating at least 2 lower case, 2 upper case and 2 numbers with a minimum length of 6");
 
                     System.out.println("Enter Your Password");
@@ -117,11 +128,22 @@ public class Main {
                         {
 
                             admin.displayCurrentStockDetails();
-                            int adminPersmission;
+                            int adminPersmission = 0;
 
                             do{
                                 System.out.println("Want to Update stock and add product::--PRESS: 1   PRESS:2-QUIT");
-                                adminPersmission=scan.nextInt();
+
+
+                                try {
+                                    adminPersmission=scan.nextInt();
+
+                                } catch (InputMismatchException e) {
+                                    System.out.print("Caution:-- Please enter number between 1-2\n");
+                                    scan.next();
+
+                                    continue;
+                                }
+
 
                                 if(adminPersmission==1)
                                 {

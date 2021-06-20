@@ -12,6 +12,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import filehandler.Filehandler;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import filehandler.Filehandler;
 
@@ -102,43 +104,6 @@ public class Shopping {
         }
 
 
-        for(int i=0;i<list1.size();i++)
-        {
-            if((list1.get(i).brand).equalsIgnoreCase(brandName) && (list1.get(i).model).equalsIgnoreCase(modelName))
-            {
-                if(list1.get(i).stock==0)
-                {
-                    System.out.println("Product is out of stock");
-                    return;
-                }
-                else
-                {
-                    list1.get(i).stock=list1.get(i).stock-1;
-                }
-
-            }
-        }
-
-        File cartUpdate= new File("./File_db/z-kart_db.txt");
-        FileWriter fileWriter = null;
-
-        try {
-            fileWriter = new FileWriter(cartUpdate,true);
-            PrintWriter writer = new PrintWriter(cartUpdate);
-            writer.print("");
-            writer.close();
-            BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
-            for(int i=0;i<list1.size();i++)
-            {
-                bufferedWriter.write(list1.get(i).toString());
-            }
-
-            bufferedWriter.close();
-            fileWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         int randomNumber;
 
@@ -236,7 +201,18 @@ public class Shopping {
                     }
 
                     System.out.println("Do you want to buy Something:-PRESS:-1      PRESS:-2 QUIT");
-                    category=scan.nextInt();
+
+
+                    try {
+
+                        category=scan.nextInt();
+
+                    } catch (InputMismatchException e) {
+                        System.out.print("Caution:-- Please enter number between 1-2\n");
+                        scan.next();
+
+                        break;
+                    }
 
                     if(category==1)
                     {
@@ -249,7 +225,7 @@ public class Shopping {
                             int min = 100000;
                             int max = 999999;
                             randomNumber = (int)Math.floor(Math.random()*(max-min+1)+min);
-                            ArrayList<Customer>allCustomer =filehandler.readFileDataCustomer();
+                            ArrayList<Customer>allCustomer = filehandler.readFileDataCustomer();
                             ArrayList<Customer>arrayList=new ArrayList<Customer>();
 
                           File file = new File("./File_db/zusers_db.txt");
@@ -259,16 +235,15 @@ public class Shopping {
                               BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                               for(int i=0;i<allCustomer.size();i++)
                               {
-                                  if(email.equalsIgnoreCase(allCustomer.get(i).email))
+                                  if(email.equalsIgnoreCase(allCustomer.get(i).getEmail()))
                                   {
-                                      CustomerCoupen customerCoupen=new CustomerCoupen(email,allCustomer.get(i).password,allCustomer.get(i).name,allCustomer.get(i).mobileNumber,randomNumber);
+                                      CustomerCoupen customerCoupen=new CustomerCoupen(email,allCustomer.get(i).getPassword(),allCustomer.get(i).getName(),allCustomer.get(i).mobileNumber,randomNumber);
                                       bufferedWriter.write(customerCoupen.toString());
                                   }
                                   else
                                   {
                                       bufferedWriter.write(allCustomer.get(i).toString());
                                   }
-
 
                               }
                               bufferedWriter.close();
@@ -315,7 +290,7 @@ public class Shopping {
 
                 case '3':
 
-                    ArrayList<Cart> cartProduct =filehandler.readCurrentProductUser();
+                       ArrayList<Cart> cartProduct =filehandler.readCurrentProductUser();
 
 
                         File userHistoryFIle = new File("./File_db/zcartuserHistory_db.txt");
@@ -340,6 +315,46 @@ public class Shopping {
                             break;
                         }
                         Invoice invoice=new Invoice(cartProduct,email,timeObj.toString(),dateObj.toString());
+
+                        ArrayList<Product> cartDataList=filehandler.readFileDataProduct();
+
+                        for(int i=0;i<cartDataList.size();i++)
+                        {
+                            for(int j=0;j<cartProduct.size();j++)
+                            {
+
+                                if( (cartDataList.get(i).brand.equalsIgnoreCase(cartProduct.get(j).brand))  &&  (cartDataList.get(i).model.equalsIgnoreCase(cartProduct.get(j).model)) )
+                                {
+
+                                      cartDataList.get(i).stock=cartDataList.get(i).stock-1;
+                                }
+
+                            }
+
+                        }
+
+
+                    File cartUpdate= new File("./File_db/z-kart_db.txt");
+                    FileWriter fileWriter = null;
+
+                    try {
+                        fileWriter = new FileWriter(cartUpdate,true);
+                        PrintWriter writer = new PrintWriter(cartUpdate);
+                        writer.print("");
+                        writer.close();
+                        BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
+                        for(int i=0;i<cartDataList.size();i++)
+                        {
+                            bufferedWriter.write(cartDataList.get(i).toString());
+                        }
+
+                        bufferedWriter.close();
+                        fileWriter.close();
+
+                      } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
 
                         File file = new File("./File_db/z-current-product_db.txt");
                         filehandler.fileDataVanisher(file);

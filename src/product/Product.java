@@ -1,5 +1,10 @@
 package product;
 
+import  filehandler.Filehandler;
+import filehandler.IdTracker;
+
+import java.util.ArrayList;
+
 public class Product {
 
 
@@ -9,7 +14,9 @@ public class Product {
     public double price;
     public int stock;
 
+
     public Product(String category,String brand,  String model, double price, int stock) {
+
         this.brand = brand;
         this.category = category;
         this.model = model;

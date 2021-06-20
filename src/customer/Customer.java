@@ -4,7 +4,7 @@ package customer;
 public class Customer {
 
     public String email;
-    public String password;
+    public  String password;
     public String name;
     public long mobileNumber;
 

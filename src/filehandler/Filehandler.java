@@ -22,7 +22,7 @@ public class Filehandler {
             bufferedWriter.close();
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Problem in adding data from file !");
         }
 
     }
@@ -37,9 +37,13 @@ public class Filehandler {
                 fileWriter.close();
         } catch (IOException e)
         {
-            e.printStackTrace();
+            System.out.println("Problem in adding data from file !");
         }
     }
+    
+    
+
+    
 
     public  ArrayList<Product> readFileDataProduct()
     {
@@ -60,12 +64,14 @@ public class Filehandler {
                 br.close();
         } catch (IOException e)
         {
-            e.printStackTrace();
+            System.out.println("Problem in reading data from file !");
         }
 
 
         return list1;
     }
+
+
 
 
     public  ArrayList<Cart> readCurrentProductUser()
@@ -86,7 +92,7 @@ public class Filehandler {
             adu.close();
         } catch (IOException e)
         {
-            e.printStackTrace();
+            System.out.println("Problem in reading data from file !");
         }
 
 
@@ -112,7 +118,7 @@ public class Filehandler {
             adu.close();
         } catch (IOException e)
         {
-            e.printStackTrace();
+            System.out.println("Problem in reading data from file !");
         }
 
 
@@ -138,7 +144,7 @@ public class Filehandler {
             adu.close();
         } catch (IOException e)
         {
-            e.printStackTrace();
+            System.out.println("Problem in reading data from file !");
         }
 
 
@@ -164,7 +170,7 @@ public class Filehandler {
             adu.close();
         } catch (IOException e)
         {
-            e.printStackTrace();
+            System.out.println("Problem in reading data from file !");
         }
 
 
@@ -188,7 +194,7 @@ public class Filehandler {
             }
             br.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Problem in reading data from file !");
         }
 
         return false;
@@ -212,7 +218,7 @@ public class Filehandler {
             }
             br.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Problem in reading data from file !");
         }
 
         return false;
@@ -238,7 +244,7 @@ public class Filehandler {
             }
             br.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Problem in reading data from file !");
         }
 
         return false;
@@ -256,7 +262,7 @@ public class Filehandler {
             writer.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Problem in removing data from file !");
         }
 
     }

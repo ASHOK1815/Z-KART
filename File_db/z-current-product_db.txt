@@ -1,1 +1,2 @@
-testing12@gmail.com google Tablet chromebook 8000.0 2021-06-20 08:15:55.498169592 6289
+testing12@gmail.com apple Mobile 6s 60000.0 19:20:15.245279072 2021-06-20 1318
+testing12@gmail.com HP Laptop ELITE 50400.0 19:22:28.604216911 2021-06-20 5900

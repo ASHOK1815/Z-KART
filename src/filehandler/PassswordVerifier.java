@@ -126,7 +126,7 @@ public class PassswordVerifier {
         int size=oldList.size();
         for(int i=0;i<size;i++)
         {
-            if(oldList.get(i).email.equals(email))
+            if(oldList.get(i).getEmail().equals(email))
             {
                 oldList.get(i).password=password;
             }
@@ -225,13 +225,12 @@ public class PassswordVerifier {
 
         for(int i=0;i<size;i++)
         {
-            if(oldPassswordDetails.get(i).email.equalsIgnoreCase(email))
+            if(oldPassswordDetails.get(i).getEmail().equalsIgnoreCase(email))
             {
-                name=oldPassswordDetails.get(i).name;
+                name=oldPassswordDetails.get(i).getName();
                 mobileNumber=oldPassswordDetails.get(i).mobileNumber;
-                System.out.println(oldPassswordDetails.get(i).password+"     "+firstPassword);
                 int sizeobj=oldPassswordDetails.get(i).password.length();
-                if( (firstPassword.equalsIgnoreCase(oldPassswordDetails.get(i).password) ) && (sizeobj==firstPassword.length())) {
+                if( (firstPassword.equals(oldPassswordDetails.get(i).password) ) && (sizeobj==firstPassword.length())) {
 
                     System.out.println("Password match with the old password!  Try new password again!");
                     return;
@@ -257,7 +256,7 @@ public class PassswordVerifier {
             boolean flag=true;
             for(int i=0;i<size;i++)
             {
-                if(oldPassswordDetails.get(i).email.equals(email) && flag)
+                if(oldPassswordDetails.get(i).getEmail().equals(email) && flag)
                 {
                     flag=false;
                     filehandler.fileDataVanisher(recentPassword);
