@@ -146,6 +146,32 @@ public class Filehandler {
     }
 
 
+    public  ArrayList<Customer> readFilePassword()
+    {
+
+        ArrayList<Customer> list1 = new ArrayList<Customer>();
+        File AdminUpdate= new File("./File_db/z-Password_db.txt");
+
+        try{
+            BufferedReader adu = new BufferedReader(new FileReader(AdminUpdate));
+            String temp;
+            while ((temp = adu.readLine()) != null)
+            {
+                String[] data=temp.split(" ");
+                Customer cust=new Customer(data[0],data[1],data[2], Long.parseLong(data[3]));
+                list1.add(cust);
+            }
+            adu.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return list1;
+    }
+
+
 
     public boolean emailVerifier(String email) {
 
@@ -236,32 +262,7 @@ public class Filehandler {
     }
 
 
-//    public void overRideFile(File file, Customer customer, CustomerCoupen customerCoupen)
-//    {
-//
-//        try {
-//
-//            Scanner sc = new Scanner(file);
-//
-//            StringBuffer buffer = new StringBuffer();
-//            while (sc.hasNextLine()) {
-//                buffer.append(sc.nextLine()+System.lineSeparator());
-//            }
-//            String oldLine =customer.toString();
-//            sc.close();
-//            String newLine =customerCoupen.toString();
-//            String fileContents = buffer.toString();
-//            fileContents = fileContents.replaceAll(oldLine, newLine);
-//            FileWriter writer = new FileWriter(file);
-//            writer.append(fileContents);
-//            writer.flush();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//    }
+
 
 
 

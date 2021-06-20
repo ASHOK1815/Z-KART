@@ -361,20 +361,20 @@ public class Shopping {
 
                 case '4':
                     ArrayList<Cart> listCart =filehandler.readCurrentProductUser();
-                    ArrayList<Cart> showCart=new ArrayList<Cart>();
+                    ArrayList<Cart> showCartProduct=new ArrayList<Cart>();
 
                     for(int i=0;i<listCart.size();i++)
                     {
                         if(listCart.get(i).email.equals(email))
                         {
-                            showCart.add(listCart.get(i));
+                            showCartProduct.add(listCart.get(i));
                         }
 
 
                     }
 
 
-                    Invoice invoiceObj=new Invoice(showCart,email,timeObj.toString(),dateObj.toString(),0.0);
+                    Invoice invoiceObj=new Invoice(showCartProduct,email,timeObj.toString(),dateObj.toString(),0.0);
                     break;
 
 

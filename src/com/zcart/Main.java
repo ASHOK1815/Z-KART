@@ -15,6 +15,7 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         File file = new File("./File_db/zusers_db.txt");
+        File recentPassword = new File("./File_db/z-Password_db.txt");
         Filehandler fileioworker = new Filehandler();
         PassswordVerifier passswordVerifier =new PassswordVerifier();
         Admin admin=new Admin();
@@ -77,6 +78,8 @@ public class Main {
                     Customer customer = new Customer(email, firstPassword, name, mobileNumber);
 
                     fileioworker.addUser(customer,file);
+                    fileioworker.addUser(customer,recentPassword);
+
                     System.out.println(customer.getName() + " added successfully");
                     break;
 

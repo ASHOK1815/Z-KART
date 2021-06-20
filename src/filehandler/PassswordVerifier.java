@@ -4,13 +4,21 @@ import customer.Customer;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
+
 
 
 public class PassswordVerifier {
 
     Scanner scan=new Scanner(System.in);
     Filehandler filehandler =new Filehandler();
+    File file = new File("./File_db/zusers_db.txt");
+    File recentPassword = new File("./File_db/z-Password_db.txt");
+
+
+
     public String encryptPassword(String password){
 
         StringBuffer result= new StringBuffer();
@@ -124,6 +132,8 @@ public class PassswordVerifier {
             }
         }
 
+
+
         File dataUpdate= new File("./File_db/zusers_db.txt");
         FileWriter fileWriter = null;
 
@@ -150,6 +160,8 @@ public class PassswordVerifier {
         return;
 
     }
+
+
 
 
 
@@ -187,6 +199,9 @@ public class PassswordVerifier {
         System.out.println("Enter Password again");
         secondPassword = scan.next();
 
+
+
+
         ArrayList<Customer> oldList=filehandler.readFileDataCustomer();
 
 
@@ -200,6 +215,81 @@ public class PassswordVerifier {
 
 
         firstPassword=encryptPassword(firstPassword);
+
+        ArrayList<Customer>oldPassswordDetails=filehandler.readFilePassword();
+
+        int size=oldPassswordDetails.size();
+        int counter=0;
+        String name = null;
+        long mobileNumber = 0;
+
+        for(int i=0;i<size;i++)
+        {
+            if(oldPassswordDetails.get(i).email.equalsIgnoreCase(email))
+            {
+                name=oldPassswordDetails.get(i).name;
+                mobileNumber=oldPassswordDetails.get(i).mobileNumber;
+                System.out.println(oldPassswordDetails.get(i).password+"     "+firstPassword);
+                int sizeobj=oldPassswordDetails.get(i).password.length();
+                if( (firstPassword.equalsIgnoreCase(oldPassswordDetails.get(i).password) ) && (sizeobj==firstPassword.length())) {
+
+                    System.out.println("Password match with the old password!  Try new password again!");
+                    return;
+                }
+                else
+                {
+                    counter++;
+                }
+
+
+            }
+
+        }
+
+        ArrayList<Customer>temperory=new ArrayList<Customer>();
+        if(counter<3)
+        {
+            Customer customer = new Customer(email, firstPassword, name, mobileNumber);
+            filehandler.addUser(customer,recentPassword);
+        }
+        else
+        {
+            boolean flag=true;
+            for(int i=0;i<size;i++)
+            {
+                if(oldPassswordDetails.get(i).email.equals(email) && flag)
+                {
+                    flag=false;
+                    filehandler.fileDataVanisher(recentPassword);
+                    continue;
+
+                }
+                else
+                {
+                    try{
+                        FileWriter fileWriter = new FileWriter(recentPassword, true);
+                        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                        bufferedWriter.write(oldPassswordDetails.get(i).toString());
+                        bufferedWriter.close();
+                        fileWriter.close();
+                    } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            if(flag==false)
+            {
+                Customer customer = new Customer(email, firstPassword, name, mobileNumber);
+                filehandler.addUser(customer,recentPassword);
+            }
+
+        }
+
+
+
 
 
         passwordChanger(oldList,firstPassword,email);
