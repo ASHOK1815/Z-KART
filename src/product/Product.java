@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Product {
 
-
+    public int id;
     public String brand;
     public String category;
     public String model;
@@ -15,8 +15,9 @@ public class Product {
     public int stock;
 
 
-    public Product(String category,String brand,  String model, double price, int stock) {
+    public Product(int id, String category,String brand,  String model, double price, int stock) {
 
+        this.id = id;
         this.brand = brand;
         this.category = category;
         this.model = model;
@@ -24,8 +25,10 @@ public class Product {
         this.stock = stock;
     }
 
+
+
     @Override
     public String toString() {
-        return category + " "+ brand+ " "+model+" "+price+""+" "+stock+"\n";
+        return id +" "+ category +" "+ brand +" "+ model +" "+ price +" "+ stock +"\n";
     }
 }

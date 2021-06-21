@@ -7,21 +7,21 @@ public class Customer {
     public  String password;
     public String name;
     public long mobileNumber;
+    public int isInitialCouponGenerated;
 
-    public Customer( String email, String password, String name, long mobileNumber)
+    public Customer( String email, String password, String name, long mobileNumber, int isInitialCouponGenerated)
     {
         this.email = email;
         this.password = password;
         this.name = name;
         this.mobileNumber = mobileNumber;
+        this.isInitialCouponGenerated=isInitialCouponGenerated;
     }
-
-
 
 
     @Override
     public String toString() {
-        return email+" "+password+" "+name+" "+mobileNumber+"\n";
+        return email+" "+password+" "+name+" "+mobileNumber+" "+isInitialCouponGenerated+"\n";
     }
 
     public void setEmail(String email) {

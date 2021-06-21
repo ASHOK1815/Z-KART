@@ -86,7 +86,7 @@ public class Main {
 
                     firstPassword = passswordVerifier.encryptPassword(firstPassword);
 
-                    Customer customer = new Customer(email, firstPassword, name, mobileNumber);
+                    Customer customer = new Customer(email, firstPassword, name, mobileNumber, 0);
 
                     fileioworker.addUser(customer,file);
                     fileioworker.addUser(customer,recentPassword);

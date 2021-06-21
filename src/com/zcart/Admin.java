@@ -70,7 +70,7 @@ public class Admin {
             {
 
 
-                File AdminUpdate= new File("./File_db/z-kart_db.txt");
+                File AdminUpdate= new File("./File_db/product_db.txt");
                 FileWriter fileWriter = null;
 
                 try {

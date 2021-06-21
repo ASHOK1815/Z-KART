@@ -15,7 +15,4 @@ public class IdTracker {
     public String toString() {
         return name+" "+lastId+"\n";
     }
-
-
-
 }

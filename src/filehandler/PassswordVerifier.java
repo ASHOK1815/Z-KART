@@ -248,7 +248,7 @@ public class PassswordVerifier {
         ArrayList<Customer>temperory=new ArrayList<Customer>();
         if(counter<3)
         {
-            Customer customer = new Customer(email, firstPassword, name, mobileNumber);
+            Customer customer = new Customer(email, firstPassword, name, mobileNumber, 0);
             filehandler.addUser(customer,recentPassword);
         }
         else
@@ -281,7 +281,7 @@ public class PassswordVerifier {
 
             if(flag==false)
             {
-                Customer customer = new Customer(email, firstPassword, name, mobileNumber);
+                Customer customer = new Customer(email, firstPassword, name, mobileNumber, 0);
                 filehandler.addUser(customer,recentPassword);
             }
 
