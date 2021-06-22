@@ -1,10 +1,10 @@
 # Special_task<!-- PROJECT LOGO -->
 <br />
-<p align="center">
 
-    <p align="center">
+
+ <p align="center">
    --------------- Z-KART--------------------
-        </p>
+  </p>
 
   <p align="center">
    --------------- COMMAND LINE E-COMMERCEE WEBSITE---------------------
