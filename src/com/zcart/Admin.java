@@ -18,21 +18,32 @@ public class Admin {
     {
         ArrayList<Product> list1=filehandler.readFileDataProduct();
 
+
+
         System.out.println("----------------WELCOME TO THE ADMIN SECTION---------------------");
         System.out.println();
         System.out.println("-----------LIST OF ITEMS  AND THE CURRENT STOCK-------------------");
         System.out.println();
         System.out.println("BRAND   "+"    MODEL   "+"    STOCK  " );
+        System.out.println();
 
 
          int listSize=list1.size();
+         boolean flag=true;
          for(int i=0;i<listSize;i++)
         {
             if(list1.get(i).stock<10)
             {
+                flag=false;
                 System.out.println(list1.get(i).brand+"     "+list1.get(i).model+"           "+list1.get(i).stock);
             }
         }
+
+         if(flag)
+         {
+             System.out.println("----------------ALL PRODUCT IS AVAILABLE WITH MORE THAN 10 STOCK---------------------");
+             System.out.println();
+         }
 
 
     }
