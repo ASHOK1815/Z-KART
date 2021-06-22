@@ -23,9 +23,9 @@
     <li>
       <p>Task : 1 - Customer Initialization</p>
       <ul>
-       <p>We are going to write a software to perform an online shopping application called Z-Kart.</p>
-       <p>The back bone for every online retail application is its customers. The initial customer details for our system will be given in a file zusers_db.txt</p>
-         <p>The file contains multiple lines and every line will be of the form</p>
+       <a href>We are going to write a software to perform an online shopping application called Z-Kart.</a>
+       <a href>The back bone for every online retail application is its customers. The initial customer details for our system will be given in a file zusers_db.txt</a>
+         <a href>The file contains multiple lines and every line will be of the form</a>
       </ul>
     </li>
     <li>
