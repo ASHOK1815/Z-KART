@@ -14,7 +14,7 @@ public class Admin {
 
     Filehandler filehandler=new Filehandler();
     Scanner scan=new Scanner(System.in);
-    public void displayCurrentStockDetails()
+    public void displayCurrentStockDetails() // Displaying the current  all products details
     {
         ArrayList<Product> list1=filehandler.readFileDataProduct();
 
@@ -49,7 +49,7 @@ public class Admin {
     }
 
 
-    public void adminUpdateStock()
+    public void adminUpdateStock() // function for updating stock by the Admin
     {
             String brandname=null;
             String modelname=null;
@@ -59,7 +59,8 @@ public class Admin {
             int stockvalue=0;
             System.out.println("How many stock you want to add in  "+brandname);
             stockvalue=scan.nextInt();
-            ArrayList<Product> list1=filehandler.readFileDataProduct();
+            ArrayList<Product> list1=filehandler.readFileDataProduct();// reading the all product details for product file
+                                                                       // addding to the array list
 
             boolean flag=true;
 
@@ -68,7 +69,7 @@ public class Admin {
                 if(list1.get(i).brand.equalsIgnoreCase(brandname) && list1.get(i).model.equalsIgnoreCase(modelname))
                 {
                     flag=false;
-                    list1.get(i).stock=list1.get(i).stock+stockvalue;
+                    list1.get(i).stock=list1.get(i).stock+stockvalue; // adding the stock value to the particular brand and model name
                 }
             }
 
@@ -83,7 +84,7 @@ public class Admin {
 
                 File AdminUpdate= new File("./File_db/product_db.txt");
                 FileWriter fileWriter = null;
-
+                // updating the new added stock to the product file
                 try {
                     fileWriter = new FileWriter(AdminUpdate,true);
                     PrintWriter writer = new PrintWriter(AdminUpdate);
@@ -100,7 +101,7 @@ public class Admin {
                     System.out.println("Stock Updated Successfully");
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    System.out.println("Problem occur updating stock by admin ");
                 }
 
 
@@ -113,7 +114,7 @@ public class Admin {
     }
 
 
-   public boolean adminDefault_PasswordChanger()
+   public boolean adminDefault_PasswordChanger() // default password changer for admin // task -7
    {
 
        String firstPassword;
@@ -126,7 +127,7 @@ public class Admin {
        secondPassword=scan.next();
        PassswordVerifier passswordVerifier =new PassswordVerifier();
 
-       if(!passswordVerifier.passwordValidChecker(firstPassword,secondPassword))
+       if(!passswordVerifier.passwordValidChecker(firstPassword,secondPassword)) // checking of the password validity
        {
            return false;
        }
@@ -136,11 +137,11 @@ public class Admin {
 
        }
 
-       firstPassword = passswordVerifier.encryptPassword(firstPassword);
+       firstPassword = passswordVerifier.encryptPassword(firstPassword);// encryption of password is done here
 
 
 
-       ArrayList<Customer> list1=filehandler.readFileDataCustomer();
+       ArrayList<Customer> list1=filehandler.readFileDataCustomer();  // reading the data of the user data file
        for(int i=0;i<list1.size();i++)
        {
            if(list1.get(i).name.equals("Admin"))
@@ -151,7 +152,7 @@ public class Admin {
 
        File AdminUpdate= new File("./File_db/zusers_db.txt");
        FileWriter fileWriter = null;
-
+        // updating the stock  by the admin
        try {
            fileWriter = new FileWriter(AdminUpdate,true);
            PrintWriter writer = new PrintWriter(AdminUpdate);
@@ -167,7 +168,7 @@ public class Admin {
            fileWriter.close();
 
        } catch (IOException e) {
-           e.printStackTrace();
+           System.out.println("Not able to write updated password  to file ......");
        }
 
        return  true;

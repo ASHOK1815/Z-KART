@@ -15,26 +15,27 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);
-        File file = new File("./File_db/zusers_db.txt");
-        File recentPassword = new File("./File_db/z-Password_db.txt");
+        File file = new File("./File_db/zusers_db.txt");// user data  text file
+        File recentPassword = new File("./File_db/z-Password_db.txt");// old password collector text file
         Filehandler fileioworker = new Filehandler();
         PassswordVerifier passswordVerifier =new PassswordVerifier();
         Admin admin=new Admin();
         Shopping shop=new Shopping();
 
         char choice;
-
+        System.out.println("----------------------------------------------------------------");
         do {
-            System.out.println("Welcome to Z-kart");
-            System.out.println("1:Register");
-            System.out.println("2:Login");
-            System.out.println("3:Password Change");
+            //  MAIN PAGE MENU
+            System.out.println("WELCOME TO Z-KART");
+            System.out.println("1:REGISTER");
+            System.out.println("2:LOGIN");
+            System.out.println("3:PASSWORD CHANGE");
             System.out.println("Q:Quit");
             choice = scan.next().charAt(0);
             switch (choice) {
 
                 case '1':
-
+                    // Register of the user email id
                     String email;
                     String firstPassword;
                     String secondPassword;
@@ -97,7 +98,7 @@ public class Main {
 
 
                 case '2':
-
+                   // CASE 2 LOGIN
                     String loginEmail;
                     String loginPassword;
 
@@ -175,12 +176,12 @@ public class Main {
 
 
                 case '3':
-
+                    // CASE 3 FOR PASSWORD CHANGE
                     passswordVerifier.passwordUpdate();
                     break;
 
             }
-        }while(choice!='Q');
+        }while(choice!='Q' && choice!='q');
 
         System.out.println("Logout Successfully!");
 

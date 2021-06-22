@@ -5,16 +5,14 @@ import Inventory.Coupon;
 import Inventory.Order;
 import Inventory.OrderProduct;
 import customer.Customer;
-import customer.CustomerCoupen;
 import product.Product;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Filehandler {
 
-    public void addLastId(IdTracker idTracker, File file) {
+    public void addLastId(IdTracker idTracker, File file) {// adding the tracking of the last id in the file
 
         try{
             FileWriter fileWriter = new FileWriter(file, true);
@@ -24,11 +22,11 @@ public class Filehandler {
             fileWriter.close();
         } catch (IOException e)
         {
-            System.out.println("Problem in adding data from file !");
+            System.out.println("Problem in adding last id data in the  file !");
         }
     }
 
-    public void addCoupon(Coupon coupon, File file) {
+    public void addCoupon(Coupon coupon, File file) { // adding coupen with the valid person details
 
         try{
             FileWriter fileWriter = new FileWriter(file, true);
@@ -38,12 +36,12 @@ public class Filehandler {
             fileWriter.close();
         } catch (IOException e)
         {
-            System.out.println("Problem in adding data from file !");
+            System.out.println("Problem in adding coupen to  file !");
         }
     }
 
 
-    public void addCart(Cart cart, File file) {
+    public void addCart(Cart cart, File file) {   // adding date to the cart(product) file
 
         try {
             FileWriter fileWriter = new FileWriter(file,true);
@@ -56,12 +54,12 @@ public class Filehandler {
         }
     }
 
-    public void addOrder(Order order, File file) {
+    public void addOrder(Order order, File file) {  // adding data to the order text file
 
         try {
             FileWriter fileWriter = new FileWriter(file,true);
             BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
-            bufferedWriter.write(order.toString());
+            bufferedWriter.write(order.toString());  // calling of order class to string method
             bufferedWriter.close();
             fileWriter.close();
         } catch (IOException e) {
@@ -292,7 +290,7 @@ public class Filehandler {
     }
 
 
-    public  ArrayList<Customer> readFilePassword()
+    public  ArrayList<Customer> readFilePassword()  // reading the password data
     {
 
         ArrayList<Customer> list1 = new ArrayList<Customer>();
@@ -343,7 +341,7 @@ public class Filehandler {
 
 
 
-    public boolean emailAndPasswordVerifier(String email,String password) {
+    public boolean emailAndPasswordVerifier(String email,String password) { // Email and password verifier
 
         try {
             File readfile = new File("./File_db/zusers_db.txt");
@@ -367,7 +365,7 @@ public class Filehandler {
 
 
 
-    public boolean adminChecker(String email,String Password){
+    public boolean adminChecker(String email,String Password){   // CHECKING THE VALID ADMIN
 
         try {
             File readfile = new File("./File_db/zusers_db.txt");
@@ -393,7 +391,7 @@ public class Filehandler {
     }
 
 
-    public void fileDataVanisher(File file)
+    public void fileDataVanisher(File file)  // REMOVING DATA FROM THE FILE
     {
         FileWriter fwOb = null;
         try {

@@ -11,7 +11,7 @@ public class Invoice {
     Double TotalPrice;
     Filehandler fileHandler=new Filehandler();
 
-    public Invoice(ArrayList<Cart> listProduct, String email, String date, String time)
+    public Invoice(ArrayList<Cart> listProduct, String email, String date, String time)  // Displaying  the Invoice
     {
 
         System.out.println("------------------------------Z-KART-----------------------------------------");
@@ -53,7 +53,7 @@ public class Invoice {
 
     }
 
-    public Invoice(ArrayList<Order> listOrders, String email, String date, String time, String counter)
+    public Invoice(ArrayList<Order> listOrders, String email, String date, String time, String counter) // Displaying  the History Data
     {
 
         if(listOrders.size()==0)
@@ -111,7 +111,7 @@ public class Invoice {
 
     }
 
-    public Invoice(ArrayList<Cart> listProduct, String email, String date, String time, double number)
+    public Invoice(ArrayList<Cart> listProduct, String email, String date, String time, double number)     // Displaying  the cart details
     {
 
         if(listProduct.size()==0)

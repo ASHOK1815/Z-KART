@@ -19,7 +19,7 @@ public class PassswordVerifier {
 
 
 
-    public String encryptPassword(String password){
+    public String encryptPassword(String password){      // password encryption //
 
         StringBuffer result= new StringBuffer();
 
@@ -121,7 +121,7 @@ public class PassswordVerifier {
 
 
 
-    public void passwordChanger( ArrayList<Customer> oldList,String password,String email)
+    public void passwordChanger( ArrayList<Customer> oldList,String password,String email)  // password Changer
     {
         int size=oldList.size();
         for(int i=0;i<size;i++)
@@ -165,7 +165,7 @@ public class PassswordVerifier {
 
 
 
-    public void  passwordUpdate()
+    public void  passwordUpdate()   // updating the password
     {
         String email;
         String firstPassword;
@@ -286,10 +286,6 @@ public class PassswordVerifier {
             }
 
         }
-
-
-
-
 
         passwordChanger(oldList,firstPassword,email);
 
