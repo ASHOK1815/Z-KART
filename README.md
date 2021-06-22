@@ -17,13 +17,14 @@
 
 
 <!-- TABLE OF CONTENTS -->
-Task : 1 - Customer Initialization
-
-We are going to write a software to perform an online shopping application called Z-Kart.
-
-The back bone for every online retail application is its customers. The initial customer details for our system will be given in a file zusers_db.txt
-
-The file contains multiple lines and every line will be of the form
+<a href>Task : 1 - Customer Initialization</a>
+<p align="center">
+1.We are going to write a software to perform an online shopping application called Z-Kart.
+<br>
+2.The back bone for every online retail application is its customers. The initial customer details for our system will be given in a file zusers_db.txt
+<br>
+3.The file contains multiple lines and every line will be of the form
+ </p>
 
 
 UserName/Email EncryptedPwd Name Mobile
