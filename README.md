@@ -61,14 +61,34 @@
 
 ```
 
-*2 - 3 - New Account Signups
+*3 - 3 - New Account Signups
 ```yaml
- 1.There must be provision to sign up new accounts. While adding new customers, get their e-mail id, name, mobile number and password as input. Ask the user to       re-type password to avoid any typos. Ensure that the password and re-typed password match.
- 2.Since every customer needs to be identified uniquely, ensure that the given e-mail id is not existing in our registered Z-Kart database. If so, prompt the user     to sign in instead of sign up
+ 1.There must be provision to sign up new accounts. While adding new customers, get their e-mail id, name, mobile number and password as input.
+   Ask the user to re-type password to avoid any typos. Ensure that the password and re-typed password match.
+ 2.Since every customer needs to be identified uniquely, ensure that the given e-mail id is not existing in our registered Z-Kart database.
+   If so, prompt the user to sign in instead of sign up
  3.Append the newly added customer details into the zusers_db.txt
 
 
 ```
+
+*4 - Encryption
+```yaml
+ 1.It's generally not advised to store passwords directly in files. So the passwords present in the file are obtained by applying a simple encryption technique to    each and every individual character in the plain password.
+ 2.The encryption rule is very simple - add +1 to original char to encrypt it
+   a will be encrypted as b
+   m as n, z as a ( wrap around ) ...
+   1 as 2, 9 as 0, 0 as 1....
+   A as B, C as D, Z as A.....
+
+
+
+Please take care of encrypting the password while writing to external storage
+
+
+```
+
+
 
 
 
