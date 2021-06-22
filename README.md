@@ -40,10 +40,32 @@
   UserName/Email EncryptedPwd Name Mobile
 
   abc@zoho.com ApipNbjm Rahul 9922992299
-
   123@zoho.com Cboljoh Anitha 8564119904
-
   user@zoho.com kbwb22 Arpan 9872345693
+
+
+```
+
+*2 - Inventory Initialization
+```yaml
+  1.Z-Kart is an online shopping kart focussing on selling electronic gadgets especially laptops, mobiles and tablets
+  2.The inventory of Z-Kart is initialized from the file z-kart_db.txt which is of below format
+  
+  Category Brand Model Price Stock
+
+ Mobile Apple 6S 60000 10
+ Mobile Motorola G 12000 5
+ Laptop HP Elite 56000 20
+ Tablet Google ChromeBook 8000 12
+
+
+```
+
+*2 - 3 - New Account Signups
+```yaml
+ 1.There must be provision to sign up new accounts. While adding new customers, get their e-mail id, name, mobile number and password as input. Ask the user to       re-type password to avoid any typos. Ensure that the password and re-typed password match.
+ 2.Since every customer needs to be identified uniquely, ensure that the given e-mail id is not existing in our registered Z-Kart database. If so, prompt the user     to sign in instead of sign up
+ 3.Append the newly added customer details into the zusers_db.txt
 
 
 ```
