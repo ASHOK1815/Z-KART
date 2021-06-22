@@ -427,6 +427,8 @@ public class Shopping {
 //                   End
 
                      Invoice invoice=new Invoice(cartProducts,email,timeObj.toString(),dateObj.toString());
+                        totalAmount=totalAmount-discountPercentage;
+                    System.out.println("TOTAL PAY AMOUNT:--"+totalAmount+"  Rs only");
                     if(discountPercentage>0){
                         System.out.println(String.format("----------------------You have Saved %s------------------------------------", String.valueOf(amountSaved)));
                     }

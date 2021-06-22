@@ -25,7 +25,7 @@ public class Invoice {
         int invoiceNumber = (int)Math.floor(Math.random()*(9999-1000+1)+1000);
         System.out.println("Invoice Number "+invoiceNumber);
         System.out.println();
-        TotalPrice= Double.valueOf(0);
+
 
         int listSize=listProduct.size();
         ArrayList<Product> products=fileHandler.readFileDataProduct();
@@ -33,7 +33,7 @@ public class Invoice {
         {
             if(listProduct.get(i).email.equals(email))
             {
-                TotalPrice+=listProduct.get(i).price;
+
                 System.out.println("Date:-"+listProduct.get(i).Date);
                 int productIndex=0;
                 for(int j=0;j<products.size();j++){
@@ -49,7 +49,7 @@ public class Invoice {
         }
 
 
-        System.out.println("TOTAL PAY AMOUNT:--"+TotalPrice+"  Rs only");
+
 
     }
 
