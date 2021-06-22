@@ -16,23 +16,31 @@
 </p>
 
 
-<details open="open">
+details open="open">
   <summary>Table of Contents</summary>
   <ol>
     <li>
-        <a href>Task : 1 - Customer Initialization</a>
-       <ul>
-          <p align="center">
-          1.We are going to write a software to perform an online shopping application called Z-Kart.
-          <br>
-          2.The back bone for every online retail application is its customers. The initial customer details for our system will be given in a file zusers_db.txt
-          <br>
-          3.The file contains multiple lines and every line will be of the form
-           </p>
+      <a href="">Task : 1 - Customer Initialization</a>
+      <ul>
+        <li>1.We are going to write a software to perform an online shopping application called Z-Kart.
 
-       </ul>
+       <li>2.The back bone for every online retail application is its customers. The initial customer details for our system will be given in a file zusers_db.txt</li>
+       <li>3.The file contains multiple lines and every line will be of the form</li></li>
+      </ul>
     </li>
-    
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
