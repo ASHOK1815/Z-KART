@@ -25,7 +25,7 @@ details open="open">
         <li>1.We are going to write a software to perform an online shopping application called Z-Kart.
 
        <li>2.The back bone for every online retail application is its customers. The initial customer details for our system will be given in a file zusers_db.txt</li>
-       <li>3.The file contains multiple lines and every line will be of the form</li></li>
+       <li>3.The file contains multiple lines and every line will be of the form</li>
       </ul>
     </li>
     <li>
