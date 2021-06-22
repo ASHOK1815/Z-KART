@@ -2,7 +2,9 @@
 <br />
 <p align="center">
 
-    <h3 align="center">WELCOME TO Z-KART</h3>
+    <p align="center">
+   --------------- Z-KART--------------------
+        </p>
 
   <p align="center">
    --------------- COMMAND LINE E-COMMERCEE WEBSITE---------------------
