@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Invoice {
 
-    Double TotalPrice;
+    Double totalPrice;
     Filehandler fileHandler=new Filehandler();
 
     public Invoice(ArrayList<Cart> listProduct, String email, String date, String time)  // Displaying  the Invoice
@@ -74,7 +74,7 @@ public class Invoice {
             {
                 if(listOrders.get(i).email.equals(email))
                 {
-                    TotalPrice= Double.valueOf(0);
+                    totalPrice= Double.valueOf(0);
                     System.out.println("------------------------------OrderId-"+listOrders.get(i).id+"-----------------------------------------");
                     System.out.println("Date:-"+listOrders.get(i).Date);
                     System.out.println("\nProducts:");
@@ -83,7 +83,9 @@ public class Invoice {
                     ArrayList<Product> products=fileHandler.readFileDataProduct();
                     for(int j=0;j<orderProducts.size();j++){
                         if(orderProducts.get(j).orderId==listOrders.get(i).id){
-                            TotalPrice+=orderProducts.get(j).price;
+                            totalPrice+=orderProducts.get(j).price;
+                            totalPrice=totalPrice-(totalPrice*listOrders.get(i).discount/100.0);
+
                             int productIndex=0;
                             for(int k=0;k<products.size();k++){
                                 if(products.get(k).id==orderProducts.get(j).productId){
@@ -92,9 +94,20 @@ public class Invoice {
                                 }
                             }
                             System.out.println("-> Brand:--"+products.get(productIndex).brand+"  "+"Model:--"+products.get(productIndex).model+" "+"Price:--"+orderProducts.get(j).price);
+
+                            if(listOrders.get(i).discount==0)
+                            {
+                                System.out.println("NO COUPEN APPLIED..");
+                            }
+                            else
+                            {
+                                System.out.println("\nTOTAL DISCOUNT PERCENTAGE OFFERED BY APPLYING COUPEN:--"+listOrders.get(i).discount+"%");
+                            }
+
                         }
                     }
-                    System.out.println("\nTOTAL PAY AMOUNT FOR THIS ORDER:--"+TotalPrice+"  Rs only");
+
+                    System.out.println("\nTOTAL PAY AMOUNT FOR THIS ORDER:--"+totalPrice+"  Rs only");
                     System.out.println("--------------------------------------------------------------------");
                 }
                 System.out.println();

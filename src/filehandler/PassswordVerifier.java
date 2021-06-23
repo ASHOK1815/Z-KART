@@ -3,11 +3,7 @@ package filehandler;
 import customer.Customer;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Scanner;
-
+import java.util.*;
 
 
 public class PassswordVerifier {
@@ -174,6 +170,7 @@ public class PassswordVerifier {
 
         System.out.println("Enter Your Mail id");
         email = scan.next();
+        email =email.toLowerCase();
         System.out.println("Enter Your old Password");
         oldPassword = scan.next();
         oldPassword =encryptPassword(oldPassword);

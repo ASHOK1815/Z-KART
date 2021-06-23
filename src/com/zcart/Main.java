@@ -43,6 +43,7 @@ public class Main {
                     long mobileNumber = 0;
                     System.out.println("Enter Your Mail id");
                     email = scan.next();
+                    email=email.toLowerCase();
 
                     if (fileioworker.emailVerifier(email)) {
                         System.out.println("Email id already exist!. Try to login");
@@ -104,6 +105,7 @@ public class Main {
 
                     System.out.println("Enter Your mail id");
                     loginEmail = scan.next();
+                    loginEmail=loginEmail.toLowerCase();
                     System.out.println("Enter password");
                     loginPassword = scan.next();
                     loginPassword = passswordVerifier.encryptPassword(loginPassword);
