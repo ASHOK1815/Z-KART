@@ -9,13 +9,12 @@ public class Customer {
     public long mobileNumber;
     public int isInitialCouponGenerated;
 
-    public Customer( String email, String password, String name, long mobileNumber, int isInitialCouponGenerated)
-    {
+    public Customer( String email, String password, String name, long mobileNumber, int isInitialCouponGenerated) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.mobileNumber = mobileNumber;
-        this.isInitialCouponGenerated=isInitialCouponGenerated;
+        this.isInitialCouponGenerated = isInitialCouponGenerated;
     }
 
 

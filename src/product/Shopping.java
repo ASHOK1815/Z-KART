@@ -114,12 +114,12 @@ public class Shopping {
         if(flag)
         {
             price=price-(price/10.0);
-            Cart cart = new Cart(email,productId,price,dateObj.toString(),timeObj.toString());
+            Cart cart = new Cart(email,productId,price,timeObj.toString(),dateObj.toString());
             filehandler.addCart(cart,productFIle);
         }
         else
         {
-            Cart cart = new Cart(email,productId,price,dateObj.toString(),timeObj.toString());
+            Cart cart = new Cart(email,productId,price,timeObj.toString(),dateObj.toString());
             filehandler.addCart(cart,productFIle);
         }
 
@@ -267,7 +267,7 @@ public class Shopping {
         }
         if(totalUserOrders>=2 && userObj.isInitialCouponGenerated==0){
             int couponCode = (int)Math.floor(Math.random()*(999999-100000+1)+100000);
-            Coupon newUserCoupon = new Coupon(newCouponId, email, newOrderId, couponCode, LocalTime.now().toString(), LocalDate.now().toString());
+            Coupon newUserCoupon = new Coupon(newCouponId, email, newOrderId, couponCode,LocalDate.now().toString(),LocalTime.now().toString());
             filehandler.addCoupon(newUserCoupon, couponFile);
             isCouponGenerated=1;
             filehandler.fileDataVanisher(usersFile);
@@ -279,7 +279,7 @@ public class Shopping {
             }
         }else if(totalAmount>=20000){
             int couponCode = (int)Math.floor(Math.random()*(999999-100000+1)+100000);
-            Coupon newUserCoupon = new Coupon(newCouponId, email, newOrderId, couponCode, LocalTime.now().toString(), LocalDate.now().toString());
+            Coupon newUserCoupon = new Coupon(newCouponId, email, newOrderId, couponCode, LocalDate.now().toString(),LocalTime.now().toString());
             filehandler.addCoupon(newUserCoupon, couponFile);
             isCouponGenerated=1;
         }
@@ -346,7 +346,7 @@ public class Shopping {
 // End
 
         Invoice invoice=new Invoice(cartProducts,email,timeObj.toString(),dateObj.toString());
-        totalAmount=totalAmount-discountPercentage;
+
         System.out.println("TOTAL PAY AMOUNT:--"+totalAmount+"  Rs only");
         if(discountPercentage>0){
             System.out.println(String.format("------------ --You get  %s percentage discount using Coupen-------------------------", String.valueOf(discountOffer)));
@@ -393,7 +393,17 @@ public class Shopping {
                     System.out.println("Type:1-MOBILE");
                     System.out.println("Type:2-LAPTOP");
                     System.out.println("Type:3-TABLET");
-                    int category=scan.nextInt();
+                    int category;
+
+                    try {
+                        category=scan.nextInt();
+
+                    } catch (InputMismatchException e) {
+                        System.out.print("Caution:-- Please enter number between 1-3\n");
+                        scan.next();
+
+                        break;
+                    }
                     String addCategory = null;
 
 

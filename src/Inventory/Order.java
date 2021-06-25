@@ -17,8 +17,8 @@ public class Order {
         this.email = email;
         this.discount=discount;
         this.totalAmount=totalAmount;
-        this.Date=Date;
         this.Time=Time;
+        this.Date=Date;
 
     }
 
